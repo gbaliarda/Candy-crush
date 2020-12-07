@@ -23,6 +23,14 @@ public class AppMenu extends MenuBar {
             }
         });
         file.getItems().add(exitMenuItem);
+        Menu levels = new Menu("Niveles");
+        MenuItem level1 = new MenuItem("Nivel 1");
+        MenuItem level2 = new MenuItem("Nivel 2");
+        MenuItem level3 = new MenuItem("Nivel 3");
+        MenuItem level4 = new MenuItem("Nivel 4");
+
+        levels.getItems().addAll(level1, level2, level3, level4);
+
         Menu help = new Menu("Ayuda");
         MenuItem aboutMenuItem = new MenuItem("Acerca De");
         aboutMenuItem.setOnAction(event -> {
@@ -34,7 +42,23 @@ public class AppMenu extends MenuBar {
             alert.showAndWait();
         });
         help.getItems().add(aboutMenuItem);
-        getMenus().addAll(file, help);
+        getMenus().addAll(file, levels ,help);
+
+        setMenuHeight();
+    }
+
+    private double height;
+
+    public void setMenuHeight(){
+        Platform.runLater(() -> setHeight2(getHeight()/65));
+    }
+
+    public double getMenuHeight(){
+        return height;
+    }
+
+    public void setHeight2(double height){
+        this.height = height;
     }
 
 }

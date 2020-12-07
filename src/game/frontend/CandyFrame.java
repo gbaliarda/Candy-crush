@@ -5,6 +5,7 @@ import game.backend.GameListener;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 
+import game.frontend.level2.ScorePanelLevel2;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
@@ -25,14 +26,15 @@ public class CandyFrame extends VBox {
 
 	public CandyFrame(CandyGame game) {
 		this.game = game;
-		getChildren().add(new AppMenu());
-		images = new ImageManager();
-		boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
-		getChildren().add(boardPanel);
-		scorePanel = new ScorePanel();
-		getChildren().add(scorePanel);
-		game.initGame();
-		GameListener listener;
+		AppMenu menu = new AppMenu();
+		getChildren().add(menu); // Agrega el menu de arriba
+		images = new ImageManager(); // Mapa de nombre de la bomba como key y la imagen como valor
+		boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
+		getChildren().add(boardPanel); // Agrega el panel a la ventana
+		scorePanel = new ScorePanel(); // Crea el panel de score
+		getChildren().add(scorePanel); // Agrega el score
+		game.initGame(); // Llena el tablero de caramelos
+		GameListener listener; // Espera y lee lo que ocurre en el tablero
 		game.addGameListener(listener = new GameListener() {
 			@Override
 			public void gridUpdated() {
@@ -61,6 +63,7 @@ public class CandyFrame extends VBox {
 
 		listener.gridUpdated();
 
+		// Mover caramelos y si gano por x motivo
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			if (lastPoint == null) {
 				lastPoint = translateCoords(event.getX(), event.getY());
@@ -71,7 +74,7 @@ public class CandyFrame extends VBox {
 					System.out.println("Get second = " +  newPoint);
 					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
 					String message = ((Long)game().getScore()).toString();
-					if (game().isFinished()) {
+					if (game().isFinished()) { // Si el game termina y es loser pero despues llegas a la condicion de ganado, ganas.
 						if (game().playerWon()) {
 							message = message + " Finished - Player Won!";
 						} else {
@@ -90,6 +93,7 @@ public class CandyFrame extends VBox {
 		return game;
 	}
 
+	// Funcion que obtiene las coordenadas del click y traducirlas
 	private Point2D translateCoords(double x, double y) {
 		double i = x / CELL_SIZE;
 		double j = y / CELL_SIZE;
