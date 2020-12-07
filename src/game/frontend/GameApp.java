@@ -3,8 +3,10 @@ package game.frontend;
 import game.backend.CandyGame;
 import game.backend.level.Level1;
 import game.backend.level.Level2;
+import game.backend.level.Level3;
 import game.frontend.level1.CandyFrameLevel1;
 import game.frontend.level2.CandyFrameLevel2;
+import game.frontend.level3.CandyFrameLevel3;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -26,10 +28,14 @@ public class GameApp extends Application {
 
 		CandyGame gameLevel1 = new CandyGame(Level1.class); // Carga el nivel 1 como juego
 		CandyGame gameLevel2 = new CandyGame(Level2.class); // Carga el nivel 2 como juego
+		CandyGame gameLevel3 = new CandyGame(Level3.class); // Carga el nivel 2 como juego
 
 		menu.getMenus().get(1).getItems().get(0).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel1(gameLevel1))));
 
 		menu.getMenus().get(1).getItems().get(1).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel2(gameLevel2))));
+
+		menu.getMenus().get(1).getItems().get(2).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel3(gameLevel3))));
+
 
 		mainFrame.getChildren().addAll(menu, new CandyFrameLevel1(gameLevel1));
 		Scene scene = new Scene(mainFrame); // Carga la ventana en la aplicacion

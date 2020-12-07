@@ -22,30 +22,36 @@ public class MoveMaker {
 
 	private void initMap(){
 		map = new HashMap<>();
+
+		// Candy normal
 		map.put(new Candy().getKey() + new Candy().getKey(), new CandyMove(grid));
 		map.put(new Candy().getKey() + new HorizontalStripedCandy().getKey(), new CandyMove(grid));
 		map.put(new Candy().getKey() + new VerticalStripedCandy().getKey(), new CandyMove(grid));
 		map.put(new Candy().getKey() + new WrappedCandy().getKey(), new CandyMove(grid));
 		map.put(new Candy().getKey() + new Bomb().getKey(), new BombMove(grid));
-	
+
+		// Candy de 4 alineados, rompe toda la fila
 		map.put(new HorizontalStripedCandy().getKey() + new Candy().getKey(), new CandyMove(grid));
 		map.put(new HorizontalStripedCandy().getKey() + new HorizontalStripedCandy().getKey(), new TwoStripedMove(grid));
 		map.put(new HorizontalStripedCandy().getKey() + new VerticalStripedCandy().getKey(), new TwoStripedMove(grid));
 		map.put(new HorizontalStripedCandy().getKey() + new WrappedCandy().getKey(), new WrappedStripedMove(grid));
 		map.put(new HorizontalStripedCandy().getKey() + new Bomb().getKey(), new BombStrippedMove(grid));
 
+		// Candy de 4 alineados, rompe toda la columna
 		map.put(new VerticalStripedCandy().getKey() + new Candy().getKey(), new CandyMove(grid));
 		map.put(new VerticalStripedCandy().getKey() + new HorizontalStripedCandy().getKey(), new TwoStripedMove(grid));
 		map.put(new VerticalStripedCandy().getKey() + new VerticalStripedCandy().getKey(), new TwoStripedMove(grid));
 		map.put(new VerticalStripedCandy().getKey() + new WrappedCandy().getKey(), new WrappedStripedMove(grid));
 		map.put(new VerticalStripedCandy().getKey() + new Bomb().getKey(), new BombStrippedMove(grid));
 
+		// Candy de L o T, explota su lugar y alrededor
 		map.put(new WrappedCandy().getKey() + new Candy().getKey(), new CandyMove(grid));
 		map.put(new WrappedCandy().getKey() + new HorizontalStripedCandy().getKey(), new WrappedStripedMove(grid));
 		map.put(new WrappedCandy().getKey() + new VerticalStripedCandy().getKey(), new WrappedStripedMove(grid));
 		map.put(new WrappedCandy().getKey() + new WrappedCandy().getKey(), new TwoWrappedMove(grid));
 		map.put(new WrappedCandy().getKey() + new Bomb().getKey(), new BombWrappedMove(grid));
 
+		// Caramelo de 5 alineados
 		map.put(new Bomb().getKey() + new Candy().getKey(), new BombMove(grid));
 		map.put(new Bomb().getKey() + new HorizontalStripedCandy().getKey(), new BombStrippedMove(grid));
 		map.put(new Bomb().getKey() + new VerticalStripedCandy().getKey(), new BombStrippedMove(grid));
