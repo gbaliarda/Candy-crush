@@ -67,13 +67,16 @@ public class Level2 extends Grid {
         return ret;
     }
 
-    private class Level2State extends GameState {
+    public class Level2State extends GameState {
         private long requiredScore;
         private long maxMoves;
+        private long nonGoldenCells;
+        private boolean[][] goldenGrid = new boolean[Grid.SIZE][Grid.SIZE];
 
         public Level2State(long requiredScore, int maxMoves) {
             this.requiredScore = requiredScore;
             this.maxMoves = maxMoves;
+            this.nonGoldenCells = Grid.SIZE * Grid.SIZE;
         }
 
         public boolean gameOver() {
@@ -81,7 +84,20 @@ public class Level2 extends Grid {
         }
 
         public boolean playerWon() {
-            return getScore() > requiredScore;
+            return nonGoldenCells == 0;
+        }
+
+        public void setGoldenCell(int row, int col){
+            goldenGrid[row][col] = true;
+            nonGoldenCells--;
+        }
+
+        public long getNonGoldenCells(){
+            return nonGoldenCells;
+        }
+
+        public boolean getGoldenCell(int row, int col){
+            return goldenGrid[row][col];
         }
     }
 

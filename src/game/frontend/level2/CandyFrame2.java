@@ -5,6 +5,7 @@ import game.backend.GameListener;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 
+import game.backend.level.Level2;
 import game.frontend.AppMenu;
 import game.frontend.BoardPanel;
 import game.frontend.ImageManager;
@@ -77,11 +78,15 @@ public class CandyFrame2 extends VBox {
                     System.out.println("Get second = " +  newPoint);
                     if(game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY())){
                         // Funcion que marque toda la fila o columna de dorado
-                        if(Math.abs((int) lastPoint.getX() - (int) newPoint.getX()) == 0)
-                            boardPanel.setGoldenRow((int)newPoint.getX());
-                        else
-                            boardPanel.setGoldenColumn((int)newPoint.getY());
-                    }
+
+                        if(Math.abs((int) lastPoint.getX() - (int) newPoint.getX()) == 0) {
+                            boardPanel.setGoldenRow((int) newPoint.getX(), game.getState());
+                        }
+                        else {
+                            boardPanel.setGoldenColumn((int) newPoint.getY(), game.getState());
+                        }
+                        scorePanel.updateCellsLeft( String.valueOf( ( (Level2.Level2State)game.getState() ).getNonGoldenCells()));
+                    }   
                     String message = ((Long)game().getScore()).toString();
                     if (game().isFinished()) { // Si el game termina y es loser pero despues llegas a la condicion de ganado, ganas.
                         if (game().playerWon()) {

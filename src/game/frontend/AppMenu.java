@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public class AppMenu extends MenuBar {
 
+    private double height;
+
     public AppMenu() {
         Menu file = new Menu("Archivo");
         MenuItem exitMenuItem = new MenuItem("Salir");
@@ -46,8 +48,6 @@ public class AppMenu extends MenuBar {
 
         setMenuHeight();
     }
-
-    private double height;
 
     public void setMenuHeight(){
         Platform.runLater(() -> setHeight2(getHeight()/65));
