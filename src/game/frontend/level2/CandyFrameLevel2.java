@@ -8,12 +8,12 @@ import game.frontend.*;
 import javafx.geometry.Point2D;
 
 
-public class CandyFrame2 extends CandyFrame {
+public class CandyFrameLevel2 extends CandyFrame {
 
     private BoardPanelLevel2 boardPanel;
     private ScorePanelLevel2 scorePanel;
 
-    public CandyFrame2(CandyGame game) {
+    public CandyFrameLevel2(CandyGame game) {
         super(game);
 
         boardPanel = new BoardPanelLevel2(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
