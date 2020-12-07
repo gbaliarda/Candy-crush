@@ -2,12 +2,9 @@ package game.frontend;
 
 import javafx.application.Platform;
 import javafx.scene.control.*;
-
 import java.util.Optional;
 
 public class AppMenu extends MenuBar {
-
-    private double height;
 
     public AppMenu() {
         Menu file = new Menu("Archivo");
@@ -46,19 +43,6 @@ public class AppMenu extends MenuBar {
         help.getItems().add(aboutMenuItem);
         getMenus().addAll(file, levels ,help);
 
-        setMenuHeight();
-    }
-
-    public void setMenuHeight(){
-        Platform.runLater(() -> setHeight2(getHeight()/65));
-    }
-
-    public double getMenuHeight(){
-        return height;
-    }
-
-    public void setHeight2(double height){
-        this.height = height;
     }
 
 }

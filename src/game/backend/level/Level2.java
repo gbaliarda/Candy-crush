@@ -9,8 +9,7 @@ import game.backend.element.Wall;
 // Nivel GoldenBoard
 
 public class Level2 extends Grid {
-
-    private static int REQUIRED_SCORE = 5000;
+    
     private static int MAX_MOVES = 20;
 
     private Cell wallCell;
@@ -18,7 +17,7 @@ public class Level2 extends Grid {
 
     @Override
     protected GameState newState() {
-        return new Level2State(REQUIRED_SCORE, MAX_MOVES);
+        return new Level2State(MAX_MOVES);
     }
 
     @Override
@@ -68,19 +67,16 @@ public class Level2 extends Grid {
     }
 
     public class Level2State extends GameState {
-        private long requiredScore;
-        private long maxMoves;
         private long nonGoldenCells;
         private boolean[][] goldenGrid = new boolean[Grid.SIZE][Grid.SIZE];
 
-        public Level2State(long requiredScore, int maxMoves) {
-            this.requiredScore = requiredScore;
-            this.maxMoves = maxMoves;
+        public Level2State(int maxMoves) {
+            setMaxMoves(maxMoves);
             this.nonGoldenCells = Grid.SIZE * Grid.SIZE;
         }
 
         public boolean gameOver() {
-            return playerWon() || getMoves() >= maxMoves;
+            return playerWon() || getMoves() >= getMaxMoves();
         }
 
         public boolean playerWon() {

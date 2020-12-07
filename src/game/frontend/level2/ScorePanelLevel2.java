@@ -11,8 +11,8 @@ public class ScorePanelLevel2 extends ScorePanel {
     private Label cellsLeft;
     private HBox celdasBox;
 
-    public ScorePanelLevel2(int size){
-        super();
+    public ScorePanelLevel2(long maxMoves, int size){
+        super(maxMoves);
         cellsLeft = new Label(String.valueOf(size * size));
 
         celdasBox = new HBox();

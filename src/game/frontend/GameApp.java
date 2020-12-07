@@ -6,6 +6,7 @@ import game.backend.level.Level2;
 import game.frontend.level2.CandyFrame2;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class GameApp extends Application {
@@ -14,14 +15,31 @@ public class GameApp extends Application {
 		launch(args);
 	}
 
+	private static AppMenu menu;
+
 	@Override
 	public void start(Stage primaryStage) {
-		CandyGame game = new CandyGame(Level2.class); // Carga el nivel 1 como juego
-		CandyFrame2 frame = new CandyFrame2(game); // Carga la ventana en frame
-		Scene scene = new Scene(frame); // Carga la ventana en la aplicacion
+		menu = new AppMenu();
+
+		VBox mainFrame = new VBox();
+
+		CandyGame gameLevel1 = new CandyGame(Level1.class); // Carga el nivel 1 como juego
+		CandyGame gameLevel2 = new CandyGame(Level2.class); // Carga el nivel 2 como juego
+
+		menu.getMenus().get(1).getItems().get(0).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrame1(gameLevel1))));
+
+		menu.getMenus().get(1).getItems().get(1).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrame2(gameLevel2))));
+
+		mainFrame.getChildren().addAll(menu, new CandyFrame1(gameLevel1));
+		Scene scene = new Scene(mainFrame); // Carga la ventana en la aplicacion
 		primaryStage.setResizable(false); // No deja que se achique o agrande
 		primaryStage.setScene(scene); // La ventana mostrara la aplicacion
 		primaryStage.show(); // Abre la ventana
 	}
 
+	private Scene createNewScene(CandyFrame frame){
+		VBox newMainFrame = new VBox();
+		newMainFrame.getChildren().addAll(menu, frame);
+		return new Scene(newMainFrame);
+	}
 }
