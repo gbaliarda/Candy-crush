@@ -1,10 +1,6 @@
 package game.backend.level;
 
 import game.backend.GameState;
-import game.backend.element.Element;
-
-import java.util.LinkedList;
-import java.util.List;
 
 // Time Bomb
 

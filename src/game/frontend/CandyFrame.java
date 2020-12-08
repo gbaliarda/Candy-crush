@@ -10,7 +10,6 @@ import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -31,6 +30,10 @@ public abstract class CandyFrame extends VBox {
         game.initGame(); // Llena el tablero de caramelos
     }
 
+    public void addKeyFrames(Timeline timeLine, Duration frameTime, BoardPanel boardPanel, int i, int j, Element element){
+        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(i, j, getImages().getImage(element))));
+    }
+
     public void gameListener(BoardPanel boardPanel){
         GameListener listener; // Espera y lee lo que ocurre en el tablero
         game.addGameListener(listener = new GameListener() {
@@ -41,14 +44,9 @@ public abstract class CandyFrame extends VBox {
                 Duration frameTime = Duration.ZERO;
                 for (int i = game().getSize() - 1; i >= 0; i--) {
                     for (int j = game().getSize() - 1; j >= 0; j--) {
-                        int finalI = i;
-                        int finalJ = j;
                         Cell cell = game.get(i, j);
                         Element element = cell.getContent();
-                        Image image = getImages().getImage(element);
-                        String text = element.getProperty();
-                        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, image)));
-                        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setText(finalI, finalJ, text)));
+                        addKeyFrames(timeLine, frameTime, boardPanel, i, j, element);
                     }
                     frameTime = frameTime.add(frameGap);
                 }
@@ -135,7 +133,6 @@ public abstract class CandyFrame extends VBox {
     // Funcion que obtiene las coordenadas del click y traducirlas
     protected Point2D translateCoords(double x, double y) {
         double i = x / CELL_SIZE;
-        // Desfasaje en y por la altura del menu.
         double j = y / CELL_SIZE;
         return (i >= 0 && i < game.getSize() && j >= 0 && j < game.getSize()) ? new Point2D(j, i) : null;
     }

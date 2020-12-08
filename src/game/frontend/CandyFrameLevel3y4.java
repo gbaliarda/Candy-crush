@@ -4,8 +4,12 @@ import game.backend.CandyGame;
 import game.backend.Grid;
 import game.backend.element.Element;
 import game.backend.level.GameState3y4;
+import game.frontend.level3.BoardPanelLevel3;
 import game.frontend.level3.ScorePanelLevel3;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
+import javafx.util.Duration;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -20,8 +24,7 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         super(game);
 
         levelState = (GameState3y4) game.getState();
-
-        BoardPanel boardPanel = new BoardPanelLevel3y4(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
+        BoardPanelLevel3 boardPanel = setBoardPanel(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
         getChildren().add(boardPanel); // Agrega el panel a la ventana
 
         scorePanel = setScorePanel();
@@ -34,9 +37,17 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         mouseEventHandler(scorePanel);
     }
 
+    @Override
+    public void addKeyFrames(Timeline timeLine, Duration frameTime, BoardPanel boardPanel, int i, int j, Element element){
+        super.addKeyFrames(timeLine, frameTime, boardPanel, i, j, element);
+        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> ((BoardPanelLevel3)boardPanel).setText(i, j, element.getProperty())));
+    }
+
     public ScorePanelLevel3 getScorePanel(){
         return scorePanel;
     }
+
+    public abstract BoardPanelLevel3 setBoardPanel(int sizeX, int sizeY, int cellSize);
 
     public abstract ScorePanelLevel3 setScorePanel();
 

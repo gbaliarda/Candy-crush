@@ -14,6 +14,11 @@ public class CandyFrameLevel3 extends CandyFrameLevel3y4 {
     }
 
     @Override
+    public BoardPanelLevel3 setBoardPanel(int sizeX, int sizeY, int cellSize) {
+        return new BoardPanelLevel3(sizeX, sizeY, cellSize);
+    }
+
+    @Override
     public ScorePanelLevel3 setScorePanel() {
         return new ScorePanelLevel3(getLevelState().getBombsLeft());
     }

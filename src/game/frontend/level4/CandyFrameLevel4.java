@@ -3,6 +3,7 @@ package game.frontend.level4;
 import game.backend.CandyGame;
 import game.backend.level.Level4;
 import game.frontend.CandyFrameLevel3y4;
+import game.frontend.level3.BoardPanelLevel3;
 import game.frontend.level3.ScorePanelLevel3;
 import javafx.application.Platform;
 import java.util.Timer;
@@ -19,7 +20,12 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
             levelState = (Level4.Level4State)getLevelState();
         }
 
-        public static Timer getTimer() {
+    @Override
+    public BoardPanelLevel3 setBoardPanel(int sizeX, int sizeY, int cellSize) {
+        return new BoardPanelLevel4(sizeX, sizeY, cellSize);
+    }
+
+    public static Timer getTimer() {
             return timer;
         }
 

@@ -11,8 +11,10 @@ import game.frontend.level3.CandyFrameLevel3;
 import game.frontend.level4.CandyFrameLevel4;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Timer;
 
@@ -55,6 +57,7 @@ public class GameApp extends Application {
 		primaryStage.setResizable(false); // No deja que se achique o agrande
 		primaryStage.setScene(scene); // La ventana mostrara la aplicacion
 		primaryStage.setTitle("Candy Crush POO");
+		primaryStage.getIcons().add(new Image("./images/LogoCandy.png"));
 		primaryStage.show(); // Abre la ventana
 	}
 
