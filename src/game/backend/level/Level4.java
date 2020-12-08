@@ -3,10 +3,6 @@ package game.backend.level;
 // Time Limit
 
 import game.backend.GameState;
-import game.backend.element.Element;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class Level4 extends Level {
 
@@ -16,8 +12,7 @@ public class Level4 extends Level {
     }
 
     public class Level4State extends GameState3y4 {
-        private int seconds = 60;
-        private boolean levelStarted = false;
+        private int seconds = 10;
 
         @Override
         public boolean gameOver() {
@@ -27,14 +22,6 @@ public class Level4 extends Level {
         @Override
         public boolean playerWon() {
             return false;
-        }
-
-        public void startTimer() {
-            levelStarted = true;
-        }
-
-        public boolean isLevelStarted() {
-            return levelStarted;
         }
 
         public int getSeconds(){

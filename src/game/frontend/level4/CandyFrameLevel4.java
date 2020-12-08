@@ -11,22 +11,38 @@ import java.util.TimerTask;
 public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
 
         private final Level4.Level4State levelState;
-        private final Timer timer;
+        private static Timer timer = new Timer();
+        private static boolean timerRunning = false;
 
         public CandyFrameLevel4(CandyGame game) {
             super(game);
             levelState = (Level4.Level4State)getLevelState();
-            timer = new Timer();
         }
 
-    @Override
-    public ScorePanelLevel3 setScorePanel() {
-        return new ScorePanelLevel4(getLevelState().getBombsLeft(), ((Level4.Level4State)getLevelState()).getSeconds());
-    }
+        public static Timer getTimer() {
+            return timer;
+        }
 
-    @Override
+        public static void setTimer(Timer timer) {
+            CandyFrameLevel4.timer = timer;
+        }
+
+        public static boolean isTimerRunning() {
+            return timerRunning;
+        }
+
+        public static void cancelTimer() {
+            timerRunning = false;
+        }
+
+        @Override
+        public ScorePanelLevel3 setScorePanel() {
+            return new ScorePanelLevel4(getLevelState().getBombsLeft(), ((Level4.Level4State)getLevelState()).getSeconds());
+        }
+
+        @Override
         public void actionIfValid(){
-            if (!levelState.isLevelStarted())
+            if (!CandyFrameLevel4.timerRunning)
                 startTimer();
         }
 
@@ -47,7 +63,7 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
                     });
                 }
             }, 0, 1000);
-            levelState.startTimer();
+            timerRunning = true;
         }
 
         public void additionalAction(int number){

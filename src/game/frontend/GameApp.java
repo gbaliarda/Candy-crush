@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Timer;
+
 public class GameApp extends Application {
 
 	public static void main(String[] args) {
@@ -39,7 +41,14 @@ public class GameApp extends Application {
 
 		menu.getMenus().get(1).getItems().get(2).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel3(gameLevel3))));
 
-		menu.getMenus().get(1).getItems().get(3).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel4(gameLevel4))));
+		menu.getMenus().get(1).getItems().get(3).setOnAction(event -> {
+			if (CandyFrameLevel4.isTimerRunning()) {
+				CandyFrameLevel4.getTimer().cancel();
+				CandyFrameLevel4.cancelTimer();
+				CandyFrameLevel4.setTimer(new Timer());
+			}
+			primaryStage.setScene(createNewScene(new CandyFrameLevel4(gameLevel4)));
+		});
 
 		mainFrame.getChildren().addAll(menu, new CandyFrameLevel1(gameLevel1));
 		Scene scene = new Scene(mainFrame); // Carga la ventana en la aplicacion

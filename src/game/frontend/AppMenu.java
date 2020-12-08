@@ -23,10 +23,10 @@ public class AppMenu extends MenuBar {
         });
         file.getItems().add(exitMenuItem);
         Menu levels = new Menu("Niveles");
-        MenuItem level1 = new MenuItem("Nivel 1");
-        MenuItem level2 = new MenuItem("Nivel 2");
-        MenuItem level3 = new MenuItem("Nivel 3");
-        MenuItem level4 = new MenuItem("Nivel 4");
+        MenuItem level1 = new MenuItem("Clásico");
+        MenuItem level2 = new MenuItem("GoldenBoard");
+        MenuItem level3 = new MenuItem("TimeBomb");
+        MenuItem level4 = new MenuItem("TimeLimit");
 
         levels.getItems().addAll(level1, level2, level3, level4);
 
@@ -36,8 +36,9 @@ public class AppMenu extends MenuBar {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Acerca De");
             alert.setHeaderText("Candy TPE");
-            alert.setContentText("Cátedra POO 2018.\n" +
-                    "Implementación Original: Laura Zabaleta (POO 2013).");
+            alert.setContentText("Cátedra POO 2020.\n" +
+                    "Implementación Original: Laura Zabaleta (POO 2013).\n" +
+                    "Implementación extendida: Ezequiel Pérez y Gonzalo Baliarda");
             alert.showAndWait();
         });
         help.getItems().add(aboutMenuItem);
