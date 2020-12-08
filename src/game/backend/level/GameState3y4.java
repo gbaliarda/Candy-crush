@@ -8,17 +8,14 @@ import java.util.List;
 
 public abstract class GameState3y4 extends GameState {
 
-    private final int maxMovements = 10;
-    private final int maxBombs = 10;
-    private int timeBombs = 10;
-    private final int initialBombs = 3;
-    private int generatedCounter = 0;
-    private final int step = 1; // Cada cuantos movimientos se genera una nueva TimeBomb
-    private final List<Element> timeBombList = new LinkedList<>();
-
-//    private int getRandomAmount(int min, int max) {
-//        return (int)(Math.random() * (max - min) + min);
-//    }
+    private static final int minMovements = 7;
+    private static final int maxMovements = 13;
+    private static final int maxBombs = 10;
+    private static int timeBombs = 10;
+    private static final int initialBombs = 3;
+    private static int generatedCounter = 0;
+    private static final int step = 2; // Cada cuantos movimientos se genera una nueva TimeBomb
+    private static final List<Element> timeBombList = new LinkedList<>();
 
     public int getStep() {
         return step;
@@ -44,8 +41,8 @@ public abstract class GameState3y4 extends GameState {
         generatedCounter++;
     }
 
-    public int getMaxMovements() {
-        return maxMovements;
+    public int getRandomAmount() {
+        return (int)(Math.random() * (maxMovements - minMovements) + minMovements);
     }
 
     public List<Element> getTimeBombList() {

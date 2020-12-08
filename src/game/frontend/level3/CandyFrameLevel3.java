@@ -1,6 +1,7 @@
 package game.frontend.level3;
 
 import game.backend.CandyGame;
+import game.backend.element.Element;
 import game.backend.level.Level3;
 import game.frontend.CandyFrameLevel3y4;
 
@@ -10,7 +11,7 @@ public class CandyFrameLevel3 extends CandyFrameLevel3y4 {
 
     public CandyFrameLevel3(CandyGame game) {
         super(game);
-        levelState = (Level3.Level3State)getLevelState();
+        levelState = (Level3.Level3State) getLevelState();
     }
 
     @Override
@@ -25,7 +26,7 @@ public class CandyFrameLevel3 extends CandyFrameLevel3y4 {
 
 
     @Override
-    public void actionIfValid(){
+    public void actionIfValid() {
         updateBombList();
     }
 
@@ -38,8 +39,14 @@ public class CandyFrameLevel3 extends CandyFrameLevel3y4 {
         });
     }
 
-    public void additionalAction(int number){
+    @Override
+    public void additionalAction(Element e){
         //
+    }
+
+    @Override
+    public boolean removeCondition(String property){
+        return property.isEmpty();
     }
 
 }

@@ -2,6 +2,7 @@ package game.frontend.level2;
 
 import game.backend.CandyGame;
 
+import game.backend.element.Element;
 import game.backend.level.Level2;
 import game.frontend.*;
 import javafx.geometry.Point2D;
@@ -23,6 +24,11 @@ public class CandyFrameLevel2 extends CandyFrame {
         gameListener(boardPanel);
 
         mouseEventHandler(scorePanel);
+    }
+
+    @Override
+    public void doOnExplosion(Element e) {
+        //
     }
 
     @Override

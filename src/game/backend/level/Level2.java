@@ -7,7 +7,7 @@ import game.backend.Grid;
 
 public class Level2 extends Level {
 
-    private static final int MAX_MOVES = 2;
+    private static final int MAX_MOVES = 25;
 
     @Override
     protected GameState newState() {

@@ -1,7 +1,6 @@
 package game.frontend.level3;
 
 import game.frontend.BoardPanel;
-import game.frontend.level1.BoardPanelLevel1;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

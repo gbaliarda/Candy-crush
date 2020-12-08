@@ -3,6 +3,7 @@ package game.backend.level;
 // Time Limit
 
 import game.backend.GameState;
+import game.frontend.level4.CandyFrameLevel4;
 
 public class Level4 extends Level {
 
@@ -12,16 +13,19 @@ public class Level4 extends Level {
     }
 
     public class Level4State extends GameState3y4 {
-        private int seconds = 10;
+        private int seconds = 15;
+        private static final int REQUIRED_SCORE = 10000;
 
         @Override
         public boolean gameOver() {
-            return getSeconds() <= 0;
+            if(playerWon())
+                CandyFrameLevel4.getTimer().cancel();
+            return getSeconds() <= 0 || playerWon();
         }
 
         @Override
         public boolean playerWon() {
-            return false;
+            return getScore() > REQUIRED_SCORE;
         }
 
         public int getSeconds(){

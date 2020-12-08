@@ -63,7 +63,7 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
             if (!game.get(row, col).getContent().getProperty().isEmpty())
                 i--;
             else {
-                game.get(row,col).getContent().setProperty(String.valueOf(levelState.getMaxMovements()));
+                game.get(row,col).getContent().setProperty(String.valueOf(levelState.getRandomAmount()));
                 levelState.addTimeBomb(game.get(row,col).getContent());
             }
         }
@@ -72,6 +72,11 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
     @Override
     public void checkMoveAction() {
         //
+    }
+
+    @Override
+    public void doOnExplosion(Element e) {
+        e.setProperty("");
     }
 
     private int getRandPos() {
@@ -94,15 +99,18 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         return isValid;
     }
 
-    public abstract void additionalAction(int number);
+    public abstract void additionalAction(Element e);
+
+    public abstract boolean removeCondition(String property);
 
     private void removeExplodedBombs() {
         Iterator<Element> it = levelState.getTimeBombList().iterator();
         while (it.hasNext()) {
-            if (it.next().getProperty().isEmpty()) {
+            Element e = it.next();
+            if (removeCondition(e.getProperty())) {
                 levelState.removeTimeBomb();
                 scorePanel.updateBombsLeft(String.valueOf(levelState.getBombsLeft()));
-                additionalAction(10);
+                additionalAction(e);
                 it.remove();
             }
         }
@@ -113,7 +121,7 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
             int randPos = getRandPos();
             while(!game.get(0, randPos).getContent().getProperty().isEmpty())
                 randPos = getRandPos();
-            game.get(0, randPos).getContent().setProperty(String.valueOf(levelState.getMaxMovements()));
+            game.get(0, randPos).getContent().setProperty(String.valueOf(levelState.getRandomAmount()));
             levelState.addTimeBomb(game.get(0, randPos).getContent());
             levelState.addGenerated();
         }

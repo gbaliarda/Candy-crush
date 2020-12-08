@@ -1,6 +1,7 @@
 package game.frontend.level4;
 
 import game.backend.CandyGame;
+import game.backend.element.Element;
 import game.backend.level.Level4;
 import game.frontend.CandyFrameLevel3y4;
 import game.frontend.level3.BoardPanelLevel3;
@@ -20,12 +21,12 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
             levelState = (Level4.Level4State)getLevelState();
         }
 
-    @Override
-    public BoardPanelLevel3 setBoardPanel(int sizeX, int sizeY, int cellSize) {
-        return new BoardPanelLevel4(sizeX, sizeY, cellSize);
-    }
+        @Override
+        public BoardPanelLevel3 setBoardPanel(int sizeX, int sizeY, int cellSize) {
+            return new BoardPanelLevel4(sizeX, sizeY, cellSize);
+        }
 
-    public static Timer getTimer() {
+        public static Timer getTimer() {
             return timer;
         }
 
@@ -44,6 +45,11 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
         @Override
         public ScorePanelLevel3 setScorePanel() {
             return new ScorePanelLevel4(getLevelState().getBombsLeft(), ((Level4.Level4State)getLevelState()).getSeconds());
+        }
+
+        @Override
+        public void doOnExplosion(Element e) {
+            e.setProperty("-" + e.getProperty());
         }
 
         @Override
@@ -72,9 +78,17 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
             timerRunning = true;
         }
 
-        public void additionalAction(int number){
-            levelState.addSeconds(10);
-            ((ScorePanelLevel4)getScorePanel()).addSeconds(10);
+        @Override
+        public void additionalAction(Element e){
+            int number = Math.abs(Integer.parseInt(e.getProperty()));
+            levelState.addSeconds(number);
+            ((ScorePanelLevel4)getScorePanel()).addSeconds(number);
+            e.setProperty("");
+        }
+
+        @Override
+        public boolean removeCondition(String property){
+              return Integer.parseInt(property) < 0;
         }
 
     }

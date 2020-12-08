@@ -1,6 +1,7 @@
 package game.frontend.level1;
 
 import game.backend.CandyGame;
+import game.backend.element.Element;
 import game.frontend.CandyFrame;
 import javafx.geometry.Point2D;
 
@@ -24,6 +25,11 @@ public class CandyFrameLevel1 extends CandyFrame {
 		// Mover caramelos y si gano por x motivo
 
 		mouseEventHandler(scorePanel);
+	}
+
+	@Override
+	public void doOnExplosion(Element e) {
+		//
 	}
 
 	@Override

@@ -54,12 +54,14 @@ public abstract class CandyFrame extends VBox {
             }
             @Override
             public void cellExplosion(Element e) {
-                e.setProperty("");
+                doOnExplosion(e);
             }
         });
 
         listener.gridUpdated();
     }
+
+    public abstract void doOnExplosion(Element e);
 
     public abstract void checkMoveAction();
 
@@ -68,15 +70,14 @@ public abstract class CandyFrame extends VBox {
             if(!stopped){
                 if (getLastPoint() == null) {
                     setLastPoint(translateCoords(event.getX(), event.getY()));
-                    System.out.println("Get first = " + getLastPoint());
                 } else {
                     Point2D newPoint = translateCoords(event.getX(), event.getY());
                     if (newPoint != null) {
-                        System.out.println("Get second = " + newPoint);
                         if (checkMove(newPoint)) {
                             checkMoveAction();
                         }
                         String message = ((Long) game().getScore()).toString();
+                        scorePanel.updateScore(message);
                         if (game().isFinished()) { // Si el game termina y es loser pero despues llegas a la condicion de ganado, ganas.
                             if (game().playerWon()) {
                                 endScreen("Ganado");
@@ -84,7 +85,6 @@ public abstract class CandyFrame extends VBox {
                                 endScreen("Perdido");
                             }
                         }
-                        scorePanel.updateScore(message);
                         setLastPoint(null);
                     }
                 }
