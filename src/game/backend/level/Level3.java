@@ -21,6 +21,7 @@ public class Level3 extends Level {
         private final int maxMovements = 10;
         private int timeBombs = 1;
         private final int initialBombs = 1;
+        private int generatedBombs = 0;
         private boolean playerLost = false;
         private final int step = 3; // Cada cuantos movimientos se genera una nueva TimeBomb
         private final List<Element> timeBombList = new LinkedList<>();
@@ -50,6 +51,10 @@ public class Level3 extends Level {
             return maxMovements;
         }
 
+        public int getGeneratedBombs() {
+            return generatedBombs;
+        }
+
         public void removeTimeBomb() {
             timeBombs--;
         }
@@ -69,6 +74,7 @@ public class Level3 extends Level {
 
         public void addTimeBomb(Element element) {
             timeBombList.add(element);
+            generatedBombs++;
         }
 
         public List<Element> getTimeBombList() {

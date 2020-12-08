@@ -88,7 +88,7 @@ public class CandyFrameLevel3 extends CandyFrame {
     }
 
     private void genNewBomb() {
-        if (levelState.getBombsLeft() == 0)
+        if (levelState.getBombsLeft() <= levelState.getInitialBombs() + levelState.getGeneratedBombs())
             return;
         if (moveCounter % levelState.getStep() == 0) {
             int randPos = getRandPos();
