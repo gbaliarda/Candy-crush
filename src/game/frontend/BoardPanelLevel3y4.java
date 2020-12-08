@@ -1,6 +1,5 @@
-package game.frontend.level3;
+package game.frontend;
 
-import game.frontend.BoardPanel;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,11 +10,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 
-public class BoardPanelLevel3 extends BoardPanel {
+public class BoardPanelLevel3y4 extends BoardPanel {
 
-    private StackPane[][] level3Cells;
+    private final StackPane[][] level3Cells;
 
-    public BoardPanelLevel3(final int rows, final int columns, final int cellSize){
+    public BoardPanelLevel3y4(final int rows, final int columns, final int cellSize){
         super(0, 0, 0);
         setPrefRows(rows);
         setPrefColumns(columns);

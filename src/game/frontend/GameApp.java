@@ -41,7 +41,6 @@ public class GameApp extends Application {
 
 		menu.getMenus().get(1).getItems().get(3).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel4(gameLevel4))));
 
-
 		mainFrame.getChildren().addAll(menu, new CandyFrameLevel1(gameLevel1));
 		Scene scene = new Scene(mainFrame); // Carga la ventana en la aplicacion
 		primaryStage.setResizable(false); // No deja que se achique o agrande

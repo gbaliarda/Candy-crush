@@ -4,14 +4,13 @@ import game.backend.CandyGame;
 
 import game.backend.level.Level2;
 import game.frontend.*;
-
 import javafx.geometry.Point2D;
 
 
 public class CandyFrameLevel2 extends CandyFrame {
 
-    private BoardPanelLevel2 boardPanel;
-    private ScorePanelLevel2 scorePanel;
+    private final BoardPanelLevel2 boardPanel;
+    private final ScorePanelLevel2 scorePanel;
 
     public CandyFrameLevel2(CandyGame game) {
         super(game);
@@ -24,6 +23,11 @@ public class CandyFrameLevel2 extends CandyFrame {
         gameListener(boardPanel);
 
         mouseEventHandler(scorePanel);
+    }
+
+    @Override
+    public void checkMoveAction() {
+        scorePanel.updateMovesLeft();
     }
 
     @Override

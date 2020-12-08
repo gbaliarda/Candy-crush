@@ -4,31 +4,30 @@ import game.frontend.ScorePanel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 
 public class ScorePanelLevel3 extends ScorePanel{
 
     private static final Label TIME_BOMB_LEFT = new Label("Bombas restantes: ");
 
-    private Label cellsLabel;
-    private VBox cellsBox;
+    private final HBox bombBox;
+    protected HBox cellsBox = new HBox(20);
 
-    public ScorePanelLevel3(long maxMoves, long timeBombsLeft){
-        super(maxMoves);
-        cellsLabel = new Label(String.valueOf(timeBombsLeft));
-        HBox cellHBox= new HBox();
-        cellHBox.getChildren().addAll(TIME_BOMB_LEFT, cellsLabel);
-        cellHBox.setAlignment(Pos.CENTER);
-        cellsBox = new VBox();
-        cellsBox.getChildren().addAll(cellHBox);
-        cellsBox.setAlignment(Pos.CENTER);
+    public ScorePanelLevel3(long timeBombsLeft){
+        super();
+
+        Label cellsLabel = new Label(String.valueOf(timeBombsLeft));
+        bombBox = new HBox();
+        bombBox.getChildren().addAll(TIME_BOMB_LEFT, cellsLabel);
+
         cellsBox.setStyle("-fx-font-size: 20");
+        cellsBox.setAlignment(Pos.CENTER);
+        cellsBox.getChildren().add(bombBox);
         setBottom(cellsBox);
     }
 
     public void updateBombsLeft(String bombs){
-        ((Label)(((HBox)cellsBox.getChildren().get(0))).getChildren().get(1)).setText(bombs);
+        ((Label)bombBox.getChildren().get(1)).setText(bombs);
     }
 
 }

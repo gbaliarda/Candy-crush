@@ -1,6 +1,5 @@
 package game.frontend;
 
-import com.sun.javafx.event.EventHandlerManager;
 import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.cell.Cell;
@@ -8,10 +7,8 @@ import game.backend.element.Element;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -66,6 +63,8 @@ public abstract class CandyFrame extends VBox {
         listener.gridUpdated();
     }
 
+    public abstract void checkMoveAction();
+
     public void mouseEventHandler(ScorePanel scorePanel){
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if(!stopped){
@@ -77,7 +76,7 @@ public abstract class CandyFrame extends VBox {
                     if (newPoint != null) {
                         System.out.println("Get second = " + newPoint);
                         if (checkMove(newPoint)) {
-                            scorePanel.updateMovesLeft();
+                            checkMoveAction();
                         }
                         String message = ((Long) game().getScore()).toString();
                         if (game().isFinished()) { // Si el game termina y es loser pero despues llegas a la condicion de ganado, ganas.
@@ -99,7 +98,6 @@ public abstract class CandyFrame extends VBox {
         Alert loser = new Alert(Alert.AlertType.CONFIRMATION);
         loser.setTitle("Juego Terminado");
         loser.setHeaderText("Has "+message+"! Puntaje: " + game().getState().getScore());
-        loser.setContentText("¿Deseas jugar de nuevo?");
         Optional<ButtonType> result = loser.showAndWait();
         if(result.isPresent()) {
             if (result.get() == ButtonType.OK) {
