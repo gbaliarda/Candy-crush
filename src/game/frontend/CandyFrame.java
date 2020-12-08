@@ -1,16 +1,24 @@
 package game.frontend;
 
+import com.sun.javafx.event.EventHandlerManager;
 import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.util.Optional;
 
 public abstract class CandyFrame extends VBox {
 
@@ -18,6 +26,7 @@ public abstract class CandyFrame extends VBox {
     protected final CandyGame game;
     private ImageManager images;
     private Point2D lastPoint;
+    private boolean stopped = false;
 
     public CandyFrame(CandyGame game){
         this.game = game;
@@ -59,29 +68,48 @@ public abstract class CandyFrame extends VBox {
 
     public void mouseEventHandler(ScorePanel scorePanel){
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            if (getLastPoint() == null) {
-                setLastPoint(translateCoords(event.getX(), event.getY()));
-                System.out.println("Get first = " +  getLastPoint());
-            } else {
-                Point2D newPoint = translateCoords(event.getX(), event.getY());
-                if (newPoint != null) {
-                    System.out.println("Get second = " +  newPoint);
-                    if(checkMove(newPoint)){
-                        scorePanel.updateMovesLeft();
-                    }
-                    String message = ((Long)game().getScore()).toString();
-                    if (game().isFinished()) { // Si el game termina y es loser pero despues llegas a la condicion de ganado, ganas.
-                        if (game().playerWon()) {
-                            message = message + " Finished - Player Won!";
-                        } else {
-                            message = message + " Finished - Loser !";
+            if(!stopped){
+                if (getLastPoint() == null) {
+                    setLastPoint(translateCoords(event.getX(), event.getY()));
+                    System.out.println("Get first = " + getLastPoint());
+                } else {
+                    Point2D newPoint = translateCoords(event.getX(), event.getY());
+                    if (newPoint != null) {
+                        System.out.println("Get second = " + newPoint);
+                        if (checkMove(newPoint)) {
+                            scorePanel.updateMovesLeft();
                         }
+                        String message = ((Long) game().getScore()).toString();
+                        if (game().isFinished()) { // Si el game termina y es loser pero despues llegas a la condicion de ganado, ganas.
+                            if (game().playerWon()) {
+                                endScreen("Ganado");
+                            } else {
+                                endScreen("Perdido");
+                            }
+                        }
+                        scorePanel.updateScore(message);
+                        setLastPoint(null);
                     }
-                    scorePanel.updateScore(message);
-                    setLastPoint(null);
                 }
             }
         });
+    }
+
+    public void endScreen(String message){
+        Alert loser = new Alert(Alert.AlertType.CONFIRMATION);
+        loser.setTitle("Juego Terminado");
+        loser.setHeaderText("Has "+message+"! Puntaje: " + game().getState().getScore());
+        loser.setContentText("¿Deseas jugar de nuevo?");
+        Optional<ButtonType> result = loser.showAndWait();
+        if(result.isPresent()) {
+            if (result.get() == ButtonType.OK) {
+                stopped = true;
+            } else {
+                Platform.exit();
+            }
+        } else {
+            Platform.exit();
+        }
     }
 
     public abstract boolean checkMove(Point2D newPoint);

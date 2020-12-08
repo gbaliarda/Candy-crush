@@ -81,6 +81,10 @@ public class CandyFrameLevel4 extends CandyFrame {
                         public void run() {
                             scorePanel.updateTimer();
                             levelState.reduceTimer();
+                            if(levelState.getSeconds() == 0) {
+                                timer.cancel();
+                                endScreen("Perdido");
+                            }
                         }
                     });
                 }
