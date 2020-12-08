@@ -1,36 +1,57 @@
 package game.backend.level;
 
+// Time Limit
+
 import game.backend.GameState;
 import game.backend.element.Element;
 
 import java.util.LinkedList;
 import java.util.List;
 
-// Time Bomb
-
-public class Level3 extends Level {
+public class Level4 extends Level {
 
     @Override
     protected GameState newState() {
-        return new Level3.Level3State();
+        return new Level4.Level4State();
     }
 
-    public class Level3State extends GameState {
+    public class Level4State extends GameState {
+        private int seconds = 15;
+        private boolean levelStarted = false;
         private final int maxMovements = 10;
-        private int timeBombs = 1;
-        private final int initialBombs = 1;
+        private int timeBombs = 10;
+        private final int initialBombs = 3;
         private int generatedBombs = 0;
-        private boolean playerLost = false;
         private final int step = 3; // Cada cuantos movimientos se genera una nueva TimeBomb
         private final List<Element> timeBombList = new LinkedList<>();
 
         @Override
         public boolean gameOver() {
-            return playerWon() || getMoves() >= getMaxMoves() || playerLost;
+            return getSeconds() <= 0;
         }
 
         public int getStep() {
             return step;
+        }
+
+        public void startTimer() {
+            levelStarted = true;
+        }
+
+        public boolean isLevelStarted() {
+            return levelStarted;
+        }
+
+        public int getSeconds(){
+            return seconds;
+        }
+
+        public void reduceTimer() {
+            seconds--;
+        }
+
+        public void addSeconds(int seconds) {
+            this.seconds += seconds;
         }
 
         public int getBombsLeft() {
@@ -53,17 +74,13 @@ public class Level3 extends Level {
             timeBombs--;
         }
 
-        private int getRandomAmount(int min, int max) {
-            return (int)(Math.random() * (max - min) + min);
-        }
+//        private int getRandomAmount(int min, int max) {
+//            return (int)(Math.random() * (max - min) + min);
+//        }
 
         @Override
         public boolean playerWon() {
-            return getBombsLeft() == 0;
-        }
-
-        public void playerLost() {
-            playerLost = true;
+            return false;
         }
 
         public void addTimeBomb(Element element) {
@@ -75,9 +92,7 @@ public class Level3 extends Level {
             return timeBombList;
         }
 
-        public long getBlastWallsCellsLeft(){
-            return timeBombs;
-        }
     }
 
 }
+
