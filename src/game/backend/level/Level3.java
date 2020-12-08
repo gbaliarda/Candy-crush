@@ -1,11 +1,16 @@
 package game.backend.level;
 
 import game.backend.GameState;
-import game.backend.Grid;
+import game.backend.element.Element;
+
+import java.util.LinkedList;
+import java.util.List;
+
+// Time Bomb
 
 public class Level3 extends Level {
 
-    private static final int MAX_MOVES = 2;
+    private static final int MAX_MOVES = 20;
 
     @Override
     protected GameState newState() {
@@ -13,56 +18,65 @@ public class Level3 extends Level {
     }
 
     public class Level3State extends GameState {
-        private long blastWallLeft;
-        private final boolean[][] blastWall = new boolean[Grid.SIZE][Grid.SIZE];
-        private int rowFrom, rowTo, colFrom, colTo;
+        private final int maxMovements = 10;
+        private int timeBombs = 1;
+        private final int initialBombs = 1;
+        private boolean playerLost = false;
+        private final int step = 3; // Cada cuantos movimientos se genera una nueva TimeBomb
+        private final List<Element> timeBombList = new LinkedList<>();
 
         public Level3State(int maxMoves) {
             setMaxMoves(maxMoves);
-            rowFrom = 3;
-            rowTo = 5;
-            colFrom = 3;
-            colTo = 5;
-            this.blastWallLeft = (rowTo - rowFrom + 1) * (colTo - colFrom + 1);
-        }
-
-        public int getRowFrom() {
-            return rowFrom;
-        }
-
-        public int getRowTo() {
-            return rowTo;
-        }
-
-        public int getColFrom() {
-            return colFrom;
-        }
-
-        public int getColTo() {
-            return colTo;
         }
 
         @Override
         public boolean gameOver() {
-            return playerWon() || getMoves() >= getMaxMoves();
+            return playerWon() || getMoves() >= getMaxMoves() || playerLost;
+        }
+
+        public int getStep() {
+            return step;
+        }
+
+        public int getBombsLeft() {
+            return timeBombs;
+        }
+
+        public int getInitialBombs() {
+            return initialBombs;
+        }
+
+        public int getMaxMovements() {
+            return maxMovements;
+        }
+
+        public void removeTimeBomb() {
+            timeBombs--;
+        }
+
+        private int getRandomAmount(int min, int max) {
+            return (int)(Math.random() * (max - min) + min);
         }
 
         @Override
         public boolean playerWon() {
-            return blastWallLeft == 0;
+            return getBombsLeft() == 0;
         }
 
-        public void setGoldenCell(int row, int col){
-            blastWall[row][col] = true;
-            blastWallLeft--;
+        public void playerLost() {
+            playerLost = true;
+        }
+
+        public void addTimeBomb(Element element) {
+            timeBombList.add(element);
+        }
+
+        public List<Element> getTimeBombList() {
+            return timeBombList;
         }
 
         public long getBlastWallsCellsLeft(){
-            return blastWallLeft;
-        }
-
-        public boolean getBlastWallCell(int row, int col){
-            return blastWall[row][col];
+            return timeBombs;
         }
     }
 

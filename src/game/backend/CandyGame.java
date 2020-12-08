@@ -27,6 +27,10 @@ public class CandyGame implements GameListener {
 	public int getSize() {
 		return Grid.SIZE;
 	}
+
+	public boolean isValidMove(int i1, int j1, int i2, int j2) {
+		return grid.isValidMove(i1, j1, i2, j2);
+	}
 	
 	public boolean tryMove(int i1, int j1, int i2, int j2){
 		return grid.tryMove(i1, j1, i2, j2);

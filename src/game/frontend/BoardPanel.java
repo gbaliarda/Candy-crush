@@ -1,11 +1,8 @@
 package game.frontend;
 
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 
 public class BoardPanel extends TilePane {
 
@@ -32,5 +29,7 @@ public class BoardPanel extends TilePane {
 	public ImageView[][] getCells(){
 		return cells;
 	}
+
+	public void setText(int i, int j, String text){}
 
 }

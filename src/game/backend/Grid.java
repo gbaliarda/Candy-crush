@@ -81,6 +81,18 @@ public abstract class Grid {
 	public void setContent(int i, int j, Element e) {
 		g[i][j].setContent(e);
 	}
+
+	public boolean isValidMove(int i1, int j1, int i2, int j2) {
+		Move move = moveMaker.getMove(i1, j1, i2, j2);
+		swapContent(i1, j1, i2, j2);
+		if (move.isValid()) {
+			swapContent(i1, j1, i2, j2);
+			return true;
+		} else {
+			swapContent(i1, j1, i2, j2);
+			return false;
+		}
+	}
 	
 	public boolean tryMove(int i1, int j1, int i2, int j2) {
 		Move move = moveMaker.getMove(i1, j1, i2, j2);

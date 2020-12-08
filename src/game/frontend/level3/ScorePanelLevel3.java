@@ -9,24 +9,26 @@ import javafx.scene.layout.VBox;
 
 public class ScorePanelLevel3 extends ScorePanel{
 
-    private static final Label BLAST_WALL_CELLS_LEFT = new Label("Celdas restantes: ");
-    private Label blastWallCellsLabel;
-    private VBox blastCellsBox;
+    private static final Label TIME_BOMB_LEFT = new Label("Bombas restantes: ");
 
-    public ScorePanelLevel3(long maxMoves, long blastWallCells){
+    private Label cellsLabel;
+    private VBox cellsBox;
+
+    public ScorePanelLevel3(long maxMoves, long timeBombsLeft){
         super(maxMoves);
-        blastWallCellsLabel = new Label(String.valueOf(blastWallCells));
-        HBox blastCellHBox= new HBox();
-        blastCellHBox.getChildren().addAll(BLAST_WALL_CELLS_LEFT, blastWallCellsLabel);
-        blastCellHBox.setAlignment(Pos.CENTER);
-        blastCellsBox = new VBox();
-        blastCellsBox.getChildren().addAll(blastCellHBox);
-        blastCellsBox.setAlignment(Pos.CENTER);
-        blastCellsBox.setStyle("-fx-font-size: 20");
-        setBottom(blastCellsBox);
+        cellsLabel = new Label(String.valueOf(timeBombsLeft));
+        HBox cellHBox= new HBox();
+        cellHBox.getChildren().addAll(TIME_BOMB_LEFT, cellsLabel);
+        cellHBox.setAlignment(Pos.CENTER);
+        cellsBox = new VBox();
+        cellsBox.getChildren().addAll(cellHBox);
+        cellsBox.setAlignment(Pos.CENTER);
+        cellsBox.setStyle("-fx-font-size: 20");
+        setBottom(cellsBox);
     }
 
-    public void updateCellsLeft(String blastCells) {
-        ((Label) (((HBox) blastCellsBox.getChildren().get(0))).getChildren().get(1)).setText(blastCells);
+    public void updateBombsLeft(String bombs){
+        ((Label)(((HBox)cellsBox.getChildren().get(0))).getChildren().get(1)).setText(bombs);
     }
+
 }

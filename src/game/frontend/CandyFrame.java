@@ -40,8 +40,9 @@ public abstract class CandyFrame extends VBox {
                         Cell cell = game.get(i, j);
                         Element element = cell.getContent();
                         Image image = getImages().getImage(element);
-                        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, null)));
+                        String text = element.getProperty();
                         timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, image)));
+                        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setText(finalI, finalJ, text)));
                     }
                     frameTime = frameTime.add(frameGap);
                 }
@@ -49,7 +50,7 @@ public abstract class CandyFrame extends VBox {
             }
             @Override
             public void cellExplosion(Element e) {
-                //
+                e.setProperty("");
             }
         });
 
