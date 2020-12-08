@@ -16,13 +16,14 @@ public class Level4 extends Level {
     }
 
     public class Level4State extends GameState {
-        private int seconds = 15;
+        private int seconds = 60;
         private boolean levelStarted = false;
         private final int maxMovements = 10;
+        private final int maxBombs = 10;
         private int timeBombs = 10;
         private final int initialBombs = 3;
-        private int generatedBombs = 0;
-        private final int step = 3; // Cada cuantos movimientos se genera una nueva TimeBomb
+        private int generatedCounter = 0;
+        private final int step = 1; // Cada cuantos movimientos se genera una nueva TimeBomb
         private final List<Element> timeBombList = new LinkedList<>();
 
         @Override
@@ -32,6 +33,10 @@ public class Level4 extends Level {
 
         public int getStep() {
             return step;
+        }
+
+        public int getMaxBombs() {
+            return maxBombs;
         }
 
         public void startTimer() {
@@ -66,8 +71,12 @@ public class Level4 extends Level {
             return maxMovements;
         }
 
-        public int getGeneratedBombs() {
-            return generatedBombs;
+        public int getGenerated() {
+            return generatedCounter;
+        }
+
+        public void addGenerated() {
+            generatedCounter++;
         }
 
         public void removeTimeBomb() {
@@ -85,7 +94,6 @@ public class Level4 extends Level {
 
         public void addTimeBomb(Element element) {
             timeBombList.add(element);
-            generatedBombs++;
         }
 
         public List<Element> getTimeBombList() {

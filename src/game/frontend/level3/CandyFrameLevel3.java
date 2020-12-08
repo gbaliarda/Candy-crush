@@ -88,12 +88,13 @@ public class CandyFrameLevel3 extends CandyFrame {
     }
 
     private void genNewBomb() {
-        if (levelState.getBombsLeft() <= levelState.getInitialBombs() + levelState.getGeneratedBombs())
-            return;
-        if (moveCounter % levelState.getStep() == 0) {
+        if (moveCounter % levelState.getStep() == 0 && !(levelState.getInitialBombs() + levelState.getGenerated() >= levelState.getMaxBombs())) {
             int randPos = getRandPos();
+            while(!game.get(0, randPos).getContent().getProperty().isEmpty())
+                randPos = getRandPos();
             game.get(0, randPos).getContent().setProperty(String.valueOf(levelState.getMaxMovements()));
             levelState.addTimeBomb(game.get(0, randPos).getContent());
+            levelState.addGenerated();
         }
     }
 

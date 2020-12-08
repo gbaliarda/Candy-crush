@@ -17,16 +17,17 @@ public class Level3 extends Level {
 
     public class Level3State extends GameState {
         private final int maxMovements = 10;
-        private int timeBombs = 1;
-        private final int initialBombs = 1;
-        private int generatedBombs = 0;
+        private final int maxBombs = 10;
+        private int timeBombs = 10;
+        private final int initialBombs = 3;
+        private int generatedCounter = 0;
         private boolean playerLost = false;
-        private final int step = 3; // Cada cuantos movimientos se genera una nueva TimeBomb
+        private final int step = 1; // Cada cuantos movimientos se genera una nueva TimeBomb
         private final List<Element> timeBombList = new LinkedList<>();
 
         @Override
         public boolean gameOver() {
-            return playerWon() || getMoves() >= getMaxMoves() || playerLost;
+            return playerWon() || playerLost;
         }
 
         public int getStep() {
@@ -41,12 +42,20 @@ public class Level3 extends Level {
             return initialBombs;
         }
 
+        public int getGenerated() {
+            return generatedCounter;
+        }
+
+        public void addGenerated() {
+            generatedCounter++;
+        }
+
         public int getMaxMovements() {
             return maxMovements;
         }
 
-        public int getGeneratedBombs() {
-            return generatedBombs;
+        public int getMaxBombs() {
+            return maxBombs;
         }
 
         public void removeTimeBomb() {
@@ -68,15 +77,10 @@ public class Level3 extends Level {
 
         public void addTimeBomb(Element element) {
             timeBombList.add(element);
-            generatedBombs++;
         }
 
         public List<Element> getTimeBombList() {
             return timeBombList;
-        }
-
-        public long getBlastWallsCellsLeft(){
-            return timeBombs;
         }
     }
 
