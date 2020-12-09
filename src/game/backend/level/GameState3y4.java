@@ -11,11 +11,11 @@ public abstract class GameState3y4 extends GameState {
     private static final int minMovements = 7;
     private static final int maxMovements = 13;
     private static final int maxBombs = 10;
-    private static int timeBombs = 10;
+    private int timeBombs = 10;
     private static final int initialBombs = 3;
-    private static int generatedCounter = 0;
+    private int generatedCounter = 0;
     private static final int step = 2; // Cada cuantos movimientos se genera una nueva TimeBomb
-    private static final List<Element> timeBombList = new LinkedList<>();
+    private List<Element> timeBombList = new LinkedList<>();
 
     public int getStep() {
         return step;
