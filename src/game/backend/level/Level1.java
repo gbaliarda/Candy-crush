@@ -12,10 +12,10 @@ public class Level1 extends Level {
 		return new Level1State(REQUIRED_SCORE, MAX_MOVES);
 	}
 	
-	public class Level1State extends GameState {
+	public static class Level1State extends GameState {
 		private final long requiredScore;
 		
-		public Level1State(long requiredScore, int maxMoves) {
+		private Level1State(long requiredScore, int maxMoves) {
 			this.requiredScore = requiredScore;
 			setMaxMoves(maxMoves);
 		}

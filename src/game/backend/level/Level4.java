@@ -10,14 +10,14 @@ public class Level4 extends Level {
 
     @Override
     protected Level4State newState() {
-        return new Level4.Level4State(REQUIRED_SCORE);
+        return new Level4State(REQUIRED_SCORE);
     }
 
-    public class Level4State extends GameState3y4 {
+    public static class Level4State extends GameState3y4 {
         private int seconds = 15;
         private final long requiredScore;
 
-        public Level4State(long requiredScore) {
+        private Level4State(long requiredScore) {
             this.requiredScore = requiredScore;
         }
 

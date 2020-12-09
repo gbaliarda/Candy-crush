@@ -14,11 +14,11 @@ public class Level2 extends Level {
         return new Level2State(MAX_MOVES);
     }
 
-    public class Level2State extends GameState {
+    public static class Level2State extends GameState {
         private long nonGoldenCells;
         private final boolean[][] goldenGrid = new boolean[Grid.SIZE][Grid.SIZE];
 
-        public Level2State(int maxMoves) {
+        private Level2State(int maxMoves) {
             setMaxMoves(maxMoves);
             this.nonGoldenCells = Grid.SIZE * Grid.SIZE;
         }
