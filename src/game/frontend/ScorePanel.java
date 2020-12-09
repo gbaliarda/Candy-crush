@@ -12,16 +12,17 @@ public class ScorePanel extends BorderPane {
 	private final HBox scoreBox;
 
 
-	public ScorePanel() {
-		setStyle("-fx-background-color: #5490ff");
+	public ScorePanel(long requiredScore) {
+		setStyle("-fx-background-color: #5490ff; -fx-padding: 5px");
 		scoreBox = new HBox();
 
 		Label scoreLabel = new Label("0");
-
+		String requiredScoreText = requiredScore < 0 ? "" : "/" + requiredScore;
+		Label requiredScoreLabel = new Label(requiredScoreText);
 
 		scorePanel = new HBox(25);
 
-		scoreBox.getChildren().addAll(SCORE, scoreLabel);
+		scoreBox.getChildren().addAll(SCORE, scoreLabel, requiredScoreLabel);
 		scorePanel.getChildren().addAll(scoreBox);
 		scorePanel.setAlignment(Pos.CENTER);
 		scorePanel.setStyle("-fx-font-size: 20");

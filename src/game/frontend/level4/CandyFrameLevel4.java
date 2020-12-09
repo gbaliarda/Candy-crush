@@ -44,7 +44,7 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
 
         @Override
         public ScorePanelLevel3 setScorePanel() {
-            return new ScorePanelLevel4(getLevelState().getBombsLeft(), ((Level4.Level4State)getLevelState()).getSeconds());
+            return new ScorePanelLevel4(getLevelState().getBombsLeft(), ((Level4.Level4State)getLevelState()).getSeconds(), game.getState().getRequiredScore());
         }
 
         @Override

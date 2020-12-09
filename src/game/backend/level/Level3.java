@@ -28,6 +28,10 @@ public class Level3 extends Level {
             playerLost = true;
         }
 
+        @Override
+        public long getRequiredScore() {
+            return -1;
+        }
 
     }
 

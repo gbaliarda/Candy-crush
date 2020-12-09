@@ -10,8 +10,8 @@ public class ScorePanelLevel1 extends ScorePanel {
     private final HBox movesLeft;
     private long moves;
 
-    public ScorePanelLevel1(long maxMoves) {
-        super();
+    public ScorePanelLevel1(long maxMoves, long requiredScore) {
+        super(requiredScore);
 
         movesLeft = new HBox();
         moves = maxMoves;

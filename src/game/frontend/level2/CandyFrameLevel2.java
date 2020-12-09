@@ -16,11 +16,11 @@ public class CandyFrameLevel2 extends CandyFrame {
     public CandyFrameLevel2(CandyGame game) {
         super(game);
         boardPanel = new BoardPanelLevel2(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
-        scorePanel = new ScorePanelLevel2(game.getState().getMaxMoves(),game.getSize()); // Crea el panel de score
+        scorePanel = new ScorePanelLevel2(game.getState().getMaxMoves(),game.getSize(), game.getState().getRequiredScore()); // Crea el panel de score
         getChildren().add(boardPanel);
         getChildren().add(scorePanel);
         gameListener(boardPanel);
-        mouseEventHandler(scorePanel);
+        mouseEventHandler(scorePanel, boardPanel);
     }
 
     @Override

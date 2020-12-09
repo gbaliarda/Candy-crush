@@ -7,6 +7,7 @@ import java.util.Optional;
 public class AppMenu extends MenuBar {
 
     public AppMenu() {
+        setStyle("-fx-font-size: 16px;");
         Menu file = new Menu("Archivo");
         MenuItem exitMenuItem = new MenuItem("Salir");
         exitMenuItem.setOnAction(event -> {

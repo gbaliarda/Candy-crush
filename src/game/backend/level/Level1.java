@@ -21,6 +21,11 @@ public class Level1 extends Level {
 		}
 
 		@Override
+		public long getRequiredScore() {
+			return requiredScore;
+		}
+
+		@Override
 		public boolean gameOver() {
 			return playerWon() || getMoves() >= getMaxMoves();
 		}

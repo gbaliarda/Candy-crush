@@ -10,8 +10,8 @@ public class ScorePanelLevel2 extends ScorePanelLevel1 {
     private static final Label CELLS_LEFT = new Label("Celdas restantes: ");
     private final HBox cellsBox;
 
-    public ScorePanelLevel2(long maxMoves, int size){
-        super(maxMoves);
+    public ScorePanelLevel2(long maxMoves, int size, long requiredScore){
+        super(maxMoves, requiredScore);
         Label cellsLabel = new Label(String.valueOf(size * size));
         cellsBox = new HBox();
         cellsBox.getChildren().addAll(CELLS_LEFT, cellsLabel);

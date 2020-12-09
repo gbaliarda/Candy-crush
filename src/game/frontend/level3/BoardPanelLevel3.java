@@ -39,6 +39,16 @@ public class BoardPanelLevel3 extends BoardPanel {
     }
 
     @Override
+    public void setLastPointEffect(int row, int col) {
+        level3Cells[row][col].getChildren().get(0).setEffect(getLightningEffect());
+    }
+
+    @Override
+    public void removeLastPointEffect(int row, int col) {
+        level3Cells[row][col].getChildren().get(0).setEffect(null);
+    }
+
+    @Override
     public void setImage(int row, int column, Image image) {
         ((ImageView)(level3Cells[row][column].getChildren().get(0))).setImage(image);
     }

@@ -65,12 +65,14 @@ public abstract class CandyFrame extends VBox {
 
     public abstract void checkMoveAction();
 
-    public void mouseEventHandler(ScorePanel scorePanel){
+    public void mouseEventHandler(ScorePanel scorePanel, BoardPanel boardPanel){
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if(!stopped){
                 if (getLastPoint() == null) {
                     setLastPoint(translateCoords(event.getX(), event.getY()));
+                    boardPanel.setLastPointEffect((int)getLastPoint().getX(), (int)getLastPoint().getY());
                 } else {
+                    boardPanel.removeLastPointEffect((int)getLastPoint().getX(), (int)getLastPoint().getY());
                     Point2D newPoint = translateCoords(event.getX(), event.getY());
                     if (newPoint != null) {
                         if (checkMove(newPoint)) {

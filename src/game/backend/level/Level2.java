@@ -33,6 +33,11 @@ public class Level2 extends Level {
             return nonGoldenCells == 0;
         }
 
+        @Override
+        public long getRequiredScore() {
+            return -1;
+        }
+
         public void setGoldenCell(int row, int col){
             goldenGrid[row][col] = true;
             nonGoldenCells--;

@@ -15,7 +15,7 @@ import java.util.Map;
 
 public abstract class Grid {
 	
-	public static final int SIZE = 9;
+	public static final int SIZE = 12;
 
 	private Cell[][] g = new Cell[SIZE][SIZE];
 	private Map<Cell, Point> gMap = new HashMap<>();

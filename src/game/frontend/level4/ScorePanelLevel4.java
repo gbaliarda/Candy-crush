@@ -12,8 +12,8 @@ public class ScorePanelLevel4 extends ScorePanelLevel3 {
     private final Label timeLabel = new Label();
     private final HBox timeBox;
 
-    public ScorePanelLevel4(long timeBombsLeft, int initialSeconds) {
-        super(timeBombsLeft);
+    public ScorePanelLevel4(long timeBombsLeft, int initialSeconds, long requiredScore) {
+        super(timeBombsLeft, requiredScore);
 
         timeLabel.setText(String.valueOf(initialSeconds));
         timeBox= new HBox();

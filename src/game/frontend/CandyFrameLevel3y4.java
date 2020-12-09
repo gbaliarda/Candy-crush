@@ -29,7 +29,7 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         getChildren().add(boardPanel);
         getChildren().add(scorePanel);
         gameListener(boardPanel);
-        mouseEventHandler(scorePanel);
+        mouseEventHandler(scorePanel, boardPanel);
     }
 
     @Override

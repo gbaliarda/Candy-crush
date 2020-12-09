@@ -13,8 +13,8 @@ public class ScorePanelLevel3 extends ScorePanel{
     private final HBox bombBox;
     protected HBox cellsBox = new HBox(20);
 
-    public ScorePanelLevel3(long timeBombsLeft){
-        super();
+    public ScorePanelLevel3(long timeBombsLeft, long requiredScore){
+        super(requiredScore);
 
         Label cellsLabel = new Label(String.valueOf(timeBombsLeft));
         bombBox = new HBox();
