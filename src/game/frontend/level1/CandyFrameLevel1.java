@@ -10,20 +10,13 @@ public class CandyFrameLevel1 extends CandyFrame {
 
 	private final ScorePanelLevel1 scorePanel;
 
-
 	public CandyFrameLevel1(CandyGame game) {
 		super(game);
-
 		BoardPanelLevel1 boardPanel = new BoardPanelLevel1(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
-		getChildren().add(boardPanel); // Agrega el panel a la ventana
 		scorePanel = new ScorePanelLevel1(game.getState().getMaxMoves()); // Crea el panel de score
-		getChildren().add(scorePanel); // Agrega el score
-
-
+		getChildren().add(boardPanel);
+		getChildren().add(scorePanel);
 		gameListener(boardPanel);
-
-		// Mover caramelos y si gano por x motivo
-
 		mouseEventHandler(scorePanel);
 	}
 

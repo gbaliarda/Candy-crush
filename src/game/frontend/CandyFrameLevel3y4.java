@@ -22,18 +22,13 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
 
     public CandyFrameLevel3y4(CandyGame game) {
         super(game);
-
         levelState = (GameState3y4) game.getState();
         BoardPanelLevel3 boardPanel = setBoardPanel(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
-        getChildren().add(boardPanel); // Agrega el panel a la ventana
-
         scorePanel = setScorePanel();
-        getChildren().add(scorePanel);
-
         generateTimeBombs();
-
+        getChildren().add(boardPanel);
+        getChildren().add(scorePanel);
         gameListener(boardPanel);
-
         mouseEventHandler(scorePanel);
     }
 
@@ -84,8 +79,6 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         return rand.nextInt(Grid.SIZE);
     }
 
-    public abstract void actionIfValid();
-
     @Override
     public boolean checkMove(Point2D newPoint) {
         boolean isValid = game().isValidMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
@@ -99,9 +92,7 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         return isValid;
     }
 
-    public abstract void additionalAction(Element e);
-
-    public abstract boolean removeCondition(String property);
+    public abstract void actionIfValid();
 
     private void removeExplodedBombs() {
         Iterator<Element> it = levelState.getTimeBombList().iterator();
@@ -115,6 +106,10 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
             }
         }
     }
+
+    public abstract void additionalAction(Element e);
+
+    public abstract boolean removeCondition(String property);
 
     private void genNewBomb() {
         if (moveCounter % levelState.getStep() == 0 && !(levelState.getInitialBombs() + levelState.getGenerated() >= levelState.getMaxBombs())) {

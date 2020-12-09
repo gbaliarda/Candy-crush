@@ -21,19 +21,19 @@ public class BoardPanelLevel2 extends BoardPanelLevel1 {
         getCells()[row][column].setEffect(lighting);
     }
 
-    public void setGoldenRow(int row, GameState state){
+    public void setGoldenRow(int row, Level2.Level2State state){
         for(int i = 0; i < getPrefColumns(); i++){
-            if(!((Level2.Level2State)state).getGoldenCell(row, i)) {
-                ((Level2.Level2State) state).setGoldenCell(row, i);
+            if(!state.getGoldenCell(row, i)) {
+                state.setGoldenCell(row, i);
                 setGoldenImage(row, i);
             }
         }
     }
 
-    public void setGoldenColumn(int column, GameState state){
+    public void setGoldenColumn(int column, Level2.Level2State state){
         for(int i = 0; i < getPrefRows(); i++){
-            if(!((Level2.Level2State)state).getGoldenCell(i, column)) {
-                ((Level2.Level2State) state).setGoldenCell(i, column);
+            if(!state.getGoldenCell(i, column)) {
+                state.setGoldenCell(i, column);
                 setGoldenImage(i, column);
             }
         }
