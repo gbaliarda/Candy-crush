@@ -1,7 +1,5 @@
 package game.frontend.level2;
 
-import game.backend.GameState;
-import game.backend.level.Level2;
 import game.frontend.level1.BoardPanelLevel1;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
@@ -21,21 +19,13 @@ public class BoardPanelLevel2 extends BoardPanelLevel1 {
         getCells()[row][column].setEffect(lighting);
     }
 
-    public void setGoldenRow(int row, Level2.Level2State state){
-        for(int i = 0; i < getPrefColumns(); i++){
-            if(!state.getGoldenCell(row, i)) {
-                state.setGoldenCell(row, i);
+    public void setGoldenRow(int row){
+        for(int i = 0; i < getPrefColumns(); i++)
                 setGoldenImage(row, i);
-            }
-        }
     }
 
-    public void setGoldenColumn(int column, Level2.Level2State state){
-        for(int i = 0; i < getPrefRows(); i++){
-            if(!state.getGoldenCell(i, column)) {
-                state.setGoldenCell(i, column);
+    public void setGoldenColumn(int column){
+        for(int i = 0; i < getPrefRows(); i++)
                 setGoldenImage(i, column);
-            }
-        }
     }
 }

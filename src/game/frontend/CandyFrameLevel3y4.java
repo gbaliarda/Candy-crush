@@ -35,7 +35,8 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
     @Override
     public void addKeyFrames(Timeline timeLine, Duration frameTime, BoardPanel boardPanel, int i, int j, Element element){
         super.addKeyFrames(timeLine, frameTime, boardPanel, i, j, element);
-        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> ((BoardPanelLevel3)boardPanel).setText(i, j, element.getProperty())));
+        String text = element.getNumber() == null ? "" : String.valueOf(element.getNumber() - 1);
+        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> ((BoardPanelLevel3)boardPanel).setText(i, j, text)));
     }
 
     public ScorePanelLevel3 getScorePanel(){
@@ -55,12 +56,10 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         for (int i = 0; i < levelState.getInitialBombs(); i++) {
             row = getRandPos();
             col = getRandPos();
-            if (!game.get(row, col).getContent().getProperty().isEmpty())
+            if (!(game.get(row, col).getContent().getNumber() == null))
                 i--;
-            else {
-                game.get(row,col).getContent().setProperty(String.valueOf(levelState.getRandomAmount()));
+            else
                 levelState.addTimeBomb(game.get(row,col).getContent());
-            }
         }
     }
 
@@ -71,7 +70,7 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
 
     @Override
     public void doOnExplosion(Element e) {
-        e.setProperty("");
+        e.setNumber(null);
     }
 
     private int getRandPos() {
@@ -83,10 +82,10 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
     public boolean checkMove(Point2D newPoint) {
         boolean isValid = game().isValidMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
         if(isValid){
-            actionIfValid();
             moveCounter++;
             genNewBomb();
             game().tryMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
+            actionIfValid();
             removeExplodedBombs();
         }
         return isValid;
@@ -98,7 +97,7 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
         Iterator<Element> it = levelState.getTimeBombList().iterator();
         while (it.hasNext()) {
             Element e = it.next();
-            if (removeCondition(e.getProperty())) {
+            if (removeCondition(e.getNumber())) {
                 levelState.removeTimeBomb();
                 scorePanel.updateBombsLeft(String.valueOf(levelState.getBombsLeft()));
                 additionalAction(e);
@@ -109,14 +108,14 @@ public abstract class CandyFrameLevel3y4 extends CandyFrame {
 
     public abstract void additionalAction(Element e);
 
-    public abstract boolean removeCondition(String property);
+    public abstract boolean removeCondition(Integer number);
 
     private void genNewBomb() {
         if (moveCounter % levelState.getStep() == 0 && !(levelState.getInitialBombs() + levelState.getGenerated() >= levelState.getMaxBombs())) {
             int randPos = getRandPos();
-            while(!game.get(0, randPos).getContent().getProperty().isEmpty())
+            while(!(game.get(0, randPos).getContent().getNumber() == null))
                 randPos = getRandPos();
-            game.get(0, randPos).getContent().setProperty(String.valueOf(levelState.getRandomAmount()));
+            game.get(0, randPos).getContent().setNumber(levelState.getRandomAmount());
             levelState.addTimeBomb(game.get(0, randPos).getContent());
             levelState.addGenerated();
         }

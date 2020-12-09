@@ -32,10 +32,12 @@ public class CandyFrameLevel3 extends CandyFrameLevel3y4 {
 
     private void updateBombList() {
         levelState.getTimeBombList().forEach(bomb -> {
-            int newValue = Integer.parseInt(bomb.getProperty()) - 1;
-            bomb.setProperty(String.valueOf(newValue));
-            if (newValue == 0)
-                levelState.playerLost();
+            if (!(bomb.getNumber() == null)) {
+                int newValue = bomb.getNumber() - 1;
+                bomb.setNumber(newValue);
+                if (newValue == 0)
+                    levelState.playerLost();
+            }
         });
     }
 
@@ -45,8 +47,8 @@ public class CandyFrameLevel3 extends CandyFrameLevel3y4 {
     }
 
     @Override
-    public boolean removeCondition(String property){
-        return property.isEmpty();
+    public boolean removeCondition(Integer number){
+        return number == null;
     }
 
 }

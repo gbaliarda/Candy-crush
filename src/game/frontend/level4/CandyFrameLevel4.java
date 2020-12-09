@@ -49,7 +49,8 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
 
         @Override
         public void doOnExplosion(Element e) {
-            e.setProperty("-" + e.getProperty());
+            if (e.getNumber() != null)
+                e.setNumber(e.getNumber() * -1);
         }
 
         @Override
@@ -74,21 +75,21 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
                         }
                     });
                 }
-            }, 0, 1000);
+            }, 1000, 1000);
             timerRunning = true;
         }
 
         @Override
         public void additionalAction(Element e){
-            int number = Math.abs(Integer.parseInt(e.getProperty()));
+            int number = Math.abs(e.getNumber());
             levelState.addSeconds(number);
             ((ScorePanelLevel4)getScorePanel()).addSeconds(number);
-            e.setProperty("");
+            e.setNumber(null);
         }
 
         @Override
-        public boolean removeCondition(String property){
-              return Integer.parseInt(property) < 0;
+        public boolean removeCondition(Integer number){
+              return number < 0;
         }
 
     }

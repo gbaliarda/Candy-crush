@@ -51,6 +51,7 @@ public abstract class GameState3y4 extends GameState {
 
     public void addTimeBomb(Element element) {
         timeBombList.add(element);
+        element.setNumber(getRandomAmount());
     }
 
     public void removeTimeBomb() {

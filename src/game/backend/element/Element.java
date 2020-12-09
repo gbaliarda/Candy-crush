@@ -4,14 +4,14 @@ import game.backend.move.Direction;
 
 public abstract class Element {
 
-	private String property = "";
+	private Integer number = null;
 
-	public String getProperty() {
-		return property;
+	public Integer getNumber() {
+		return number;
 	}
 
-	public void setProperty(String property) {
-		this.property = property;
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 	public abstract boolean isMovable();

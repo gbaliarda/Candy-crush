@@ -38,6 +38,18 @@ public class Level2 extends Level {
             nonGoldenCells--;
         }
 
+        public void setGoldenRow(int row) {
+            for(int i = 0; i < Grid.SIZE; i++)
+                if(!getGoldenCell(row, i))
+                    setGoldenCell(row, i);
+        }
+
+        public void setGoldenColumn(int col) {
+            for(int i = 0; i < Grid.SIZE; i++)
+                if(!getGoldenCell(i, col))
+                    setGoldenCell(i, col);
+        }
+
         public long getNonGoldenCells(){
             return nonGoldenCells;
         }
