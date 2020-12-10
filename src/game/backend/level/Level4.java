@@ -2,7 +2,9 @@ package game.backend.level;
 
 // Time Limit
 
+import game.backend.element.Element;
 import game.frontend.level4.CandyFrameLevel4;
+import game.frontend.level4.ScorePanelLevel4;
 
 public class Level4 extends Level {
 
@@ -50,6 +52,18 @@ public class Level4 extends Level {
             this.seconds += seconds;
         }
 
+        @Override
+        public int additionalAction(Element e){
+            int number = Math.abs(e.getNumber());
+            addSeconds(number);
+            e.setNumber(null);
+            return number;
+        }
+
+        @Override
+        public boolean removeCondition(Integer number) {
+            return number < 0;
+        }
     }
 
 }

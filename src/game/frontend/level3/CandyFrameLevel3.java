@@ -2,53 +2,80 @@ package game.frontend.level3;
 
 import game.backend.CandyGame;
 import game.backend.element.Element;
-import game.backend.level.Level3;
-import game.frontend.CandyFrameLevel3y4;
+import game.backend.level.GameState3y4;
+import game.frontend.BoardPanel;
+import game.frontend.CandyFrame;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.geometry.Point2D;
+import javafx.util.Duration;
 
-public class CandyFrameLevel3 extends CandyFrameLevel3y4 {
+public class CandyFrameLevel3 extends CandyFrame {
 
-    private final Level3.Level3State levelState;
+    private final ScorePanelLevel3 scorePanel;
+    private final GameState3y4 levelState;
 
     public CandyFrameLevel3(CandyGame game) {
         super(game);
-        levelState = (Level3.Level3State) getLevelState();
+        levelState = (GameState3y4) game.getState();
+        BoardPanelLevel3 boardPanel = setBoardPanel(game.getSize(), game.getSize(), CELL_SIZE); // Crea el tablero de size x size con el tamaño de cada cell
+        scorePanel = setScorePanel();
+        generateTimeBombs();
+        getChildren().add(boardPanel);
+        getChildren().add(scorePanel);
+        gameListener(boardPanel);
+        mouseEventHandler(scorePanel, boardPanel);
     }
 
     @Override
+    public void addKeyFrames(Timeline timeLine, Duration frameTime, BoardPanel boardPanel, int i, int j, Element element){
+        super.addKeyFrames(timeLine, frameTime, boardPanel, i, j, element);
+        String text = element.getNumber() == null ? "" : String.valueOf(element.getNumber());
+        timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> ((BoardPanelLevel3)boardPanel).setText(i, j, text)));
+    }
+
+    public ScorePanelLevel3 getScorePanel(){
+        return scorePanel;
+    }
+
     public BoardPanelLevel3 setBoardPanel(int sizeX, int sizeY, int cellSize) {
         return new BoardPanelLevel3(sizeX, sizeY, cellSize);
     }
 
-    @Override
     public ScorePanelLevel3 setScorePanel() {
-        return new ScorePanelLevel3(getLevelState().getBombsLeft(), game.getState().getRequiredScore());
+        return new ScorePanelLevel3(levelState.getBombsLeft(), game.getState().getRequiredScore());
     }
 
-
-    @Override
-    public void actionIfValid() {
-        updateBombList();
+    public GameState3y4 getLevelState(){
+        return levelState;
     }
 
-    private void updateBombList() {
-        levelState.getTimeBombList().forEach(bomb -> {
-            if (!(bomb.getNumber() == null)) {
-                int newValue = bomb.getNumber() - 1;
-                bomb.setNumber(newValue);
-                if (newValue == 0)
-                    levelState.playerLost();
-            }
-        });
+    private void generateTimeBombs() {
+        levelState.generateTimeBombs(game);
     }
 
     @Override
-    public void additionalAction(Element e){
+    public void updateMovesLeft() {
+        scorePanel.updateBombsLeft(String.valueOf(levelState.getBombsLeft()));
+    }
+
+    @Override
+    public void doOnExplosion(Element e) {
+        levelState.manageExplosion(e);
+    }
+
+    @Override
+    public boolean makeMove(Point2D newPoint) {
+        boolean isValid = game().isValidMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
+        if(isValid){
+            int aux = game().getState().doOnMove(game, getLastPoint(), newPoint);
+            updateScorePanelAux(aux);
+        }
+        return isValid;
+    }
+
+    public void updateScorePanelAux(int seconds) {
         //
-    }
-
-    @Override
-    public boolean removeCondition(Integer number){
-        return number == null;
     }
 
 }

@@ -61,9 +61,11 @@ public abstract class CandyFrame extends VBox {
         listener.gridUpdated();
     }
 
-    public abstract void doOnExplosion(Element e);
+    public void doOnExplosion(Element e) {
+        //
+    }
 
-    public abstract void checkMoveAction();
+    public abstract void updateMovesLeft();
 
     public void mouseEventHandler(ScorePanel scorePanel, BoardPanel boardPanel){
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -75,8 +77,8 @@ public abstract class CandyFrame extends VBox {
                     boardPanel.removeLastPointEffect((int)getLastPoint().getX(), (int)getLastPoint().getY());
                     Point2D newPoint = translateCoords(event.getX(), event.getY());
                     if (newPoint != null) {
-                        if (checkMove(newPoint)) {
-                            checkMoveAction();
+                        if (makeMove(newPoint)) {
+                            updateMovesLeft();
                         }
                         String message = ((Long) game().getScore()).toString();
                         scorePanel.updateScore(message);
@@ -110,7 +112,9 @@ public abstract class CandyFrame extends VBox {
         }
     }
 
-    public abstract boolean checkMove(Point2D newPoint);
+    public boolean makeMove(Point2D newPoint) {
+        return game().tryMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
+    }
 
     public ImageManager getImages(){
         return images;

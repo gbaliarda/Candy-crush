@@ -21,17 +21,8 @@ public class CandyFrameLevel1 extends CandyFrame {
 	}
 
 	@Override
-	public void doOnExplosion(Element e) {
-		//
-	}
-
-	@Override
-	public void checkMoveAction() {
+	public void updateMovesLeft() {
 		scorePanel.updateMovesLeft();
 	}
 
-	@Override
-	public boolean checkMove(Point2D newPoint) {
-		return game().tryMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
-	}
 }

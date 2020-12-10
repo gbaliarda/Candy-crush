@@ -2,6 +2,8 @@ package game.backend.level;
 
 import game.backend.GameState;
 
+import java.awt.geom.Point2D;
+
 public class Level1 extends Level {
 
 	private static final int REQUIRED_SCORE = 5000;

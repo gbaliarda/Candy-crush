@@ -24,28 +24,22 @@ public class CandyFrameLevel2 extends CandyFrame {
     }
 
     @Override
-    public void doOnExplosion(Element e) {
-        //
-    }
-
-    @Override
-    public void checkMoveAction() {
+    public void updateMovesLeft() {
         scorePanel.updateMovesLeft();
     }
 
     @Override
-    public boolean checkMove(Point2D newPoint) {
-        boolean isValid = game().tryMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
+    public boolean makeMove(Point2D newPoint) {
+        boolean isValid = game.isValidMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
         if(isValid){
             // Funcion que marque toda la fila o columna de dorado
             if(Math.abs((int) getLastPoint().getX() - (int) newPoint.getX()) == 0) {
                 boardPanel.setGoldenRow((int) newPoint.getX());
-                ((Level2.Level2State)game().getState()).setGoldenRow((int) newPoint.getX());
             }
             else {
                 boardPanel.setGoldenColumn((int) newPoint.getY());
-                ((Level2.Level2State)game().getState()).setGoldenColumn((int) newPoint.getY());
             }
+            game.getState().doOnMove(game, getLastPoint(), newPoint);
             scorePanel.updateCellsLeft(String.valueOf(((Level2.Level2State)game.getState()).getNonGoldenCells()));
         }
         return isValid;

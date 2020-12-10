@@ -3,14 +3,16 @@ package game.frontend.level4;
 import game.backend.CandyGame;
 import game.backend.element.Element;
 import game.backend.level.Level4;
-import game.frontend.CandyFrameLevel3y4;
+import game.frontend.level3.CandyFrameLevel3;
 import game.frontend.level3.BoardPanelLevel3;
 import game.frontend.level3.ScorePanelLevel3;
 import javafx.application.Platform;
+import javafx.geometry.Point2D;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
+public class CandyFrameLevel4 extends CandyFrameLevel3 {
 
         private final Level4.Level4State levelState;
         private static Timer timer = new Timer();
@@ -54,9 +56,11 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
         }
 
         @Override
-        public void actionIfValid(){
-            if (!CandyFrameLevel4.timerRunning)
+        public boolean makeMove(Point2D newPoint) {
+            boolean isValid = super.makeMove(newPoint);
+            if(isValid && !timerRunning)
                 startTimer();
+            return isValid;
         }
 
         private void startTimer() {
@@ -80,16 +84,8 @@ public class CandyFrameLevel4 extends CandyFrameLevel3y4 {
         }
 
         @Override
-        public void additionalAction(Element e){
-            int number = Math.abs(e.getNumber());
-            levelState.addSeconds(number);
-            ((ScorePanelLevel4)getScorePanel()).addSeconds(number);
-            e.setNumber(null);
-        }
-
-        @Override
-        public boolean removeCondition(Integer number){
-              return number < 0;
+        public void updateScorePanelAux(int seconds) {
+            ((ScorePanelLevel4)getScorePanel()).addSeconds(seconds);
         }
 
     }

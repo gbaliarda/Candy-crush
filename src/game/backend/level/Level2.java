@@ -1,7 +1,9 @@
 package game.backend.level;
 
+import game.backend.CandyGame;
 import game.backend.GameState;
 import game.backend.Grid;
+import javafx.geometry.Point2D;
 
 // Nivel GoldenBoard
 
@@ -21,6 +23,15 @@ public class Level2 extends Level {
         private Level2State(int maxMoves) {
             setMaxMoves(maxMoves);
             this.nonGoldenCells = Grid.SIZE * Grid.SIZE;
+        }
+
+        @Override
+        public int doOnMove(CandyGame game, Point2D lastPoint, Point2D newPoint) {
+            if(Math.abs((int) lastPoint.getX() - (int) newPoint.getX()) == 0)
+                setGoldenRow((int) newPoint.getX());
+            else
+                setGoldenColumn((int) newPoint.getY());
+            return 0;
         }
 
         @Override

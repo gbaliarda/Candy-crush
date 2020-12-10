@@ -36,18 +36,23 @@ public class GameApp extends Application {
 		CandyGame gameLevel3 = new CandyGame(Level3.class); // Carga el nivel 3 como juego
 		CandyGame gameLevel4 = new CandyGame(Level4.class); // Carga el nivel 4 como juego
 
-		menu.getMenus().get(1).getItems().get(0).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel1(gameLevel1))));
+		menu.getMenus().get(1).getItems().get(0).setOnAction(event -> {
+			cancelLevel4Timer();
+			primaryStage.setScene(createNewScene(new CandyFrameLevel1(gameLevel1)));
+		});
 
-		menu.getMenus().get(1).getItems().get(1).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel2(gameLevel2))));
+		menu.getMenus().get(1).getItems().get(1).setOnAction(event -> {
+			cancelLevel4Timer();
+			primaryStage.setScene(createNewScene(new CandyFrameLevel2(gameLevel2)));
+		});
 
-		menu.getMenus().get(1).getItems().get(2).setOnAction(event -> primaryStage.setScene(createNewScene(new CandyFrameLevel3(gameLevel3))));
+		menu.getMenus().get(1).getItems().get(2).setOnAction(event -> {
+			cancelLevel4Timer();
+			primaryStage.setScene(createNewScene(new CandyFrameLevel3(gameLevel3)));
+		});
 
 		menu.getMenus().get(1).getItems().get(3).setOnAction(event -> {
-			if (CandyFrameLevel4.isTimerRunning()) {
-				CandyFrameLevel4.getTimer().cancel();
-				CandyFrameLevel4.cancelTimer();
-				CandyFrameLevel4.setTimer(new Timer());
-			}
+			cancelLevel4Timer();
 			primaryStage.setScene(createNewScene(new CandyFrameLevel4(gameLevel4)));
 		});
 
@@ -58,6 +63,14 @@ public class GameApp extends Application {
 		primaryStage.setTitle("Candy Crush POO");
 		primaryStage.getIcons().add(new Image("./images/LogoCandy.png"));
 		primaryStage.show(); // Abre la ventana
+	}
+
+	private void cancelLevel4Timer() {
+		if (CandyFrameLevel4.isTimerRunning()) {
+			CandyFrameLevel4.getTimer().cancel();
+			CandyFrameLevel4.cancelTimer();
+			CandyFrameLevel4.setTimer(new Timer());
+		}
 	}
 
 	private Scene createNewScene(CandyFrame frame){

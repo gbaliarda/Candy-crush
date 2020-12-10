@@ -10,7 +10,7 @@ public class BoardPanelLevel4 extends BoardPanelLevel3 {
 
     @Override
     public void setText(int row, int column, String text) {
-        String textAux = text.isEmpty() ? text : "+" + (Integer.parseInt(text) + 1);
+        String textAux = text.isEmpty() ? text : "+" + text;
         super.setText(row, column, textAux);
     }
 }

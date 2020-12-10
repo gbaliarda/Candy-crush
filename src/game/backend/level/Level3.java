@@ -37,6 +37,22 @@ public class Level3 extends Level {
             return -1;
         }
 
+        @Override
+        public void updateState() {
+            getTimeBombList().forEach(bomb -> {
+                if (!(bomb.getNumber() == null)) {
+                    int newValue = bomb.getNumber() - 1;
+                    bomb.setNumber(newValue);
+                    if (newValue == 0)
+                        playerLost();
+                }
+            });
+        }
+
+        @Override
+        public boolean removeCondition(Integer number) {
+            return number == null;
+        }
     }
 
 }

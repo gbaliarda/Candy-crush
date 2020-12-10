@@ -1,5 +1,8 @@
 package game.backend;
 
+
+import javafx.geometry.Point2D;
+
 public abstract class GameState {
 	
 	private long score = 0;
@@ -35,5 +38,9 @@ public abstract class GameState {
 	}
 
 	public abstract long getRequiredScore();
+
+	public int doOnMove(CandyGame game, Point2D lastPoint, Point2D newPoint) {
+		return 0;
+	}
 
 }
