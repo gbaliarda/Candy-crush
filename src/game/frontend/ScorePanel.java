@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
-public class ScorePanel extends BorderPane {
+public abstract class ScorePanel extends BorderPane {
 
 	private final static Label SCORE = new Label("Puntaje: ");
 	protected final HBox scorePanel;
