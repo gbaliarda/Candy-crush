@@ -1,10 +1,8 @@
 package game.frontend;
 
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 
 public abstract class BoardPanel extends TilePane {
 
@@ -21,10 +19,9 @@ public abstract class BoardPanel extends TilePane {
 
     public abstract void removeLastPointEffect(int row, int col);
 
-    public Lighting getLightningEffect() {
-        Light.Distant spotLight = new Light.Distant();
-        spotLight.setColor(Color.AZURE);
-        spotLight.setElevation(90);
-        return new Lighting(spotLight);
+    public Glow getFocusEffect() {
+        Glow glow = new Glow();
+        glow.setLevel(0.35);
+        return glow;
     }
 }

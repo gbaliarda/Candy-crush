@@ -26,7 +26,7 @@ public class BoardPanelLevel1 extends BoardPanel {
 
 	@Override
 	public void setLastPointEffect(int row, int col) {
-		getCells()[row][col].setEffect(getLightningEffect());
+		getCells()[row][col].setEffect(getFocusEffect());
 	}
 
 	public void setImage(int row, int column, Image image) {

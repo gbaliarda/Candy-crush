@@ -1,9 +1,7 @@
 package game.frontend.level1;
 
 import game.backend.CandyGame;
-import game.backend.element.Element;
 import game.frontend.CandyFrame;
-import javafx.geometry.Point2D;
 
 
 public class CandyFrameLevel1 extends CandyFrame {

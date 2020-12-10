@@ -40,7 +40,7 @@ public class BoardPanelLevel3 extends BoardPanel {
 
     @Override
     public void setLastPointEffect(int row, int col) {
-        level3Cells[row][col].getChildren().get(0).setEffect(getLightningEffect());
+        level3Cells[row][col].getChildren().get(0).setEffect(getFocusEffect());
     }
 
     @Override

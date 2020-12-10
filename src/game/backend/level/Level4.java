@@ -4,7 +4,6 @@ package game.backend.level;
 
 import game.backend.element.Element;
 import game.frontend.level4.CandyFrameLevel4;
-import game.frontend.level4.ScorePanelLevel4;
 
 public class Level4 extends Level {
 
@@ -15,7 +14,7 @@ public class Level4 extends Level {
         return new Level4State(REQUIRED_SCORE);
     }
 
-    public static class Level4State extends GameState3y4 {
+    private static class Level4State extends GameState3y4 {
         private int seconds = 15;
         private final long requiredScore;
 
@@ -29,6 +28,17 @@ public class Level4 extends Level {
                 CandyFrameLevel4.getTimer().cancel();
             return getSeconds() <= 0 || playerWon();
         }
+
+        @Override
+        public int getScorePanelData(){
+            return seconds;
+        }
+
+        @Override
+        public void updateTimerState() {
+            reduceTimer();
+        }
+
 
         @Override
         public long getRequiredScore() {

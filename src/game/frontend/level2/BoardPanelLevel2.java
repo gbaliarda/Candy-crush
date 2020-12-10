@@ -19,6 +19,18 @@ public class BoardPanelLevel2 extends BoardPanelLevel1 {
         getCells()[row][column].setEffect(lighting);
     }
 
+    @Override
+    public void removeLastPointEffect(int row, int col) {
+        if(getCells()[row][col].getEffect().getClass().equals(getFocusEffect().getClass()))
+            super.removeLastPointEffect(row,col);
+    }
+
+    @Override
+    public void setLastPointEffect(int row, int col){
+        if(getCells()[row][col].getEffect() == null)
+            super.setLastPointEffect(row,col);
+    }
+
     public void setGoldenRow(int row){
         for(int i = 0; i < getPrefColumns(); i++)
                 setGoldenImage(row, i);

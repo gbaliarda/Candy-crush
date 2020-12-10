@@ -20,7 +20,7 @@ public abstract class GameState3y4 extends GameState {
     private static final int initialBombs = 3;
     private int generatedCounter = 0;
     private static final int step = 2; // Cada cuantos movimientos se genera una nueva TimeBomb
-    private List<Element> timeBombList = new LinkedList<>();
+    private final List<Element> timeBombList = new LinkedList<>();
     private int moveCounter = 0;
 
     public void generateTimeBombs(CandyGame game) {
@@ -41,7 +41,12 @@ public abstract class GameState3y4 extends GameState {
         genNewBomb(game);
         updateState();
         game.tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
+        checkLose();
         return removeExplodedBombs();
+    }
+
+    public void checkLose(){
+        //
     }
 
     private void genNewBomb(CandyGame game) {
@@ -55,7 +60,11 @@ public abstract class GameState3y4 extends GameState {
         }
     }
 
-    public void updateState() {
+    public void updateState(){
+        //
+    }
+
+    public void updateTimerState(){
         //
     }
 

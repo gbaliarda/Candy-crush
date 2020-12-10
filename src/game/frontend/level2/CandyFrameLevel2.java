@@ -2,8 +2,6 @@ package game.frontend.level2;
 
 import game.backend.CandyGame;
 
-import game.backend.element.Element;
-import game.backend.level.Level2;
 import game.frontend.*;
 import javafx.geometry.Point2D;
 
@@ -32,6 +30,7 @@ public class CandyFrameLevel2 extends CandyFrame {
     public boolean makeMove(Point2D newPoint) {
         boolean isValid = game.isValidMove((int)getLastPoint().getX(), (int)getLastPoint().getY(), (int)newPoint.getX(), (int)newPoint.getY());
         if(isValid){
+            super.makeMove(newPoint);
             // Funcion que marque toda la fila o columna de dorado
             if(Math.abs((int) getLastPoint().getX() - (int) newPoint.getX()) == 0) {
                 boardPanel.setGoldenRow((int) newPoint.getX());
@@ -40,7 +39,7 @@ public class CandyFrameLevel2 extends CandyFrame {
                 boardPanel.setGoldenColumn((int) newPoint.getY());
             }
             game.getState().doOnMove(game, getLastPoint(), newPoint);
-            scorePanel.updateCellsLeft(String.valueOf(((Level2.Level2State)game.getState()).getNonGoldenCells()));
+            scorePanel.updateCellsLeft(String.valueOf(game.getState().getScorePanelData()));
         }
         return isValid;
     }

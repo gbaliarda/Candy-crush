@@ -16,14 +16,20 @@ public class Level2 extends Level {
         return new Level2State(MAX_MOVES);
     }
 
-    public static class Level2State extends GameState {
-        private long nonGoldenCells;
+    private static class Level2State extends GameState {
+        private int nonGoldenCells;
         private final boolean[][] goldenGrid = new boolean[Grid.SIZE][Grid.SIZE];
 
         private Level2State(int maxMoves) {
             setMaxMoves(maxMoves);
             this.nonGoldenCells = Grid.SIZE * Grid.SIZE;
         }
+
+        @Override
+        public int getScorePanelData(){
+            return nonGoldenCells;
+        }
+
 
         @Override
         public int doOnMove(CandyGame game, Point2D lastPoint, Point2D newPoint) {
@@ -56,21 +62,17 @@ public class Level2 extends Level {
 
         public void setGoldenRow(int row) {
             for(int i = 0; i < Grid.SIZE; i++)
-                if(!getGoldenCell(row, i))
+                if(!isGoldenCell(row, i))
                     setGoldenCell(row, i);
         }
 
         public void setGoldenColumn(int col) {
             for(int i = 0; i < Grid.SIZE; i++)
-                if(!getGoldenCell(i, col))
+                if(!isGoldenCell(i, col))
                     setGoldenCell(i, col);
         }
 
-        public long getNonGoldenCells(){
-            return nonGoldenCells;
-        }
-
-        public boolean getGoldenCell(int row, int col){
+        public boolean isGoldenCell(int row, int col){
             return goldenGrid[row][col];
         }
     }

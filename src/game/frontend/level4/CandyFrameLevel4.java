@@ -2,7 +2,7 @@ package game.frontend.level4;
 
 import game.backend.CandyGame;
 import game.backend.element.Element;
-import game.backend.level.Level4;
+import game.backend.level.GameState3y4;
 import game.frontend.level3.CandyFrameLevel3;
 import game.frontend.level3.BoardPanelLevel3;
 import game.frontend.level3.ScorePanelLevel3;
@@ -14,13 +14,13 @@ import java.util.TimerTask;
 
 public class CandyFrameLevel4 extends CandyFrameLevel3 {
 
-        private final Level4.Level4State levelState;
+        private final GameState3y4 levelState;
         private static Timer timer = new Timer();
         private static boolean timerRunning = false;
 
         public CandyFrameLevel4(CandyGame game) {
             super(game);
-            levelState = (Level4.Level4State)getLevelState();
+            levelState = getLevelState();
         }
 
         @Override
@@ -46,7 +46,7 @@ public class CandyFrameLevel4 extends CandyFrameLevel3 {
 
         @Override
         public ScorePanelLevel3 setScorePanel() {
-            return new ScorePanelLevel4(getLevelState().getBombsLeft(), ((Level4.Level4State)getLevelState()).getSeconds(), game.getState().getRequiredScore());
+            return new ScorePanelLevel4(getLevelState().getBombsLeft(), getLevelState().getScorePanelData(), game.getState().getRequiredScore());
         }
 
         @Override
@@ -71,8 +71,8 @@ public class CandyFrameLevel4 extends CandyFrameLevel3 {
                         @Override
                         public void run() {
                             ((ScorePanelLevel4)getScorePanel()).updateTimer();
-                            levelState.reduceTimer();
-                            if(levelState.getSeconds() == 0) {
+                            levelState.updateTimerState();
+                            if(levelState.getScorePanelData() == 0) {
                                 timer.cancel();
                                 endScreen("Perdido");
                             }

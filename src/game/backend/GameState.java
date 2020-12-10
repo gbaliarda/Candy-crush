@@ -43,4 +43,8 @@ public abstract class GameState {
 		return 0;
 	}
 
+	public int getScorePanelData(){
+		return 0;
+	}
+
 }

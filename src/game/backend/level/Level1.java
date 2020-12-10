@@ -2,8 +2,6 @@ package game.backend.level;
 
 import game.backend.GameState;
 
-import java.awt.geom.Point2D;
-
 public class Level1 extends Level {
 
 	private static final int REQUIRED_SCORE = 5000;
@@ -14,7 +12,7 @@ public class Level1 extends Level {
 		return new Level1State(REQUIRED_SCORE, MAX_MOVES);
 	}
 	
-	public static class Level1State extends GameState {
+	private static class Level1State extends GameState {
 		private final long requiredScore;
 		
 		private Level1State(long requiredScore, int maxMoves) {

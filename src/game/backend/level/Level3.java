@@ -11,7 +11,7 @@ public class Level3 extends Level {
         return new Level3State();
     }
 
-    public static class Level3State extends GameState3y4 {
+    private static class Level3State extends GameState3y4 {
         private boolean playerLost;
 
         private Level3State() {
@@ -43,9 +43,16 @@ public class Level3 extends Level {
                 if (!(bomb.getNumber() == null)) {
                     int newValue = bomb.getNumber() - 1;
                     bomb.setNumber(newValue);
-                    if (newValue == 0)
-                        playerLost();
                 }
+            });
+        }
+
+        @Override
+        public void checkLose(){
+            getTimeBombList().forEach(bomb -> {
+                if(bomb.getNumber() != null)
+                    if(bomb.getNumber() == 0)
+                        playerLost();
             });
         }
 
