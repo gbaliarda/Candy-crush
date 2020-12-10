@@ -2,6 +2,7 @@ package game.backend.level;
 
 // Time Limit
 
+import game.backend.GameState3y4;
 import game.backend.element.Element;
 import game.frontend.level4.CandyFrameLevel4;
 
@@ -38,7 +39,6 @@ public class Level4 extends Level {
         public void updateTimerState() {
             reduceTimer();
         }
-
 
         @Override
         public long getRequiredScore() {

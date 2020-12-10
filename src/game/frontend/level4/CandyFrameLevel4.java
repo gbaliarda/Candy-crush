@@ -2,7 +2,7 @@ package game.frontend.level4;
 
 import game.backend.CandyGame;
 import game.backend.element.Element;
-import game.backend.level.GameState3y4;
+import game.backend.GameState3y4;
 import game.frontend.level3.CandyFrameLevel3;
 import game.frontend.level3.BoardPanelLevel3;
 import game.frontend.level3.ScorePanelLevel3;

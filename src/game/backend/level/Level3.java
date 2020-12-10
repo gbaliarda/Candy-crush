@@ -1,6 +1,9 @@
 package game.backend.level;
 
+import game.backend.CandyGame;
 import game.backend.GameState;
+import game.backend.GameState3y4;
+import javafx.geometry.Point2D;
 
 // Time Bomb
 
@@ -38,6 +41,13 @@ public class Level3 extends Level {
         }
 
         @Override
+        public int doOnMove(CandyGame game, Point2D lastPoint, Point2D newPoint) {
+            updateState();
+            int res = super.doOnMove(game, lastPoint, newPoint);
+            checkLose();
+            return res;
+        }
+
         public void updateState() {
             getTimeBombList().forEach(bomb -> {
                 if (!(bomb.getNumber() == null)) {
@@ -47,7 +57,6 @@ public class Level3 extends Level {
             });
         }
 
-        @Override
         public void checkLose(){
             getTimeBombList().forEach(bomb -> {
                 if(bomb.getNumber() != null)

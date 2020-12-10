@@ -1,8 +1,5 @@
-package game.backend.level;
+package game.backend;
 
-import game.backend.CandyGame;
-import game.backend.GameState;
-import game.backend.Grid;
 import game.backend.element.Element;
 import javafx.geometry.Point2D;
 
@@ -39,14 +36,8 @@ public abstract class GameState3y4 extends GameState {
     public int doOnMove(CandyGame game, Point2D lastPoint, Point2D newPoint) {
         moveCounter++;
         genNewBomb(game);
-        updateState();
         game.tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
-        checkLose();
         return removeExplodedBombs();
-    }
-
-    public void checkLose(){
-        //
     }
 
     private void genNewBomb(CandyGame game) {
@@ -58,10 +49,6 @@ public abstract class GameState3y4 extends GameState {
             addTimeBomb(game.get(0, randPos).getContent());
             generatedCounter++;
         }
-    }
-
-    public void updateState(){
-        //
     }
 
     public void updateTimerState(){
@@ -79,7 +66,7 @@ public abstract class GameState3y4 extends GameState {
             Element e = it.next();
             if (removeCondition(e.getNumber())) {
                 timeBombs--;
-                number = additionalAction(e);
+                number += additionalAction(e);
                 it.remove();
             }
         }

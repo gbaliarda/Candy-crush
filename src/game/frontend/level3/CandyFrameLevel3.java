@@ -2,7 +2,7 @@ package game.frontend.level3;
 
 import game.backend.CandyGame;
 import game.backend.element.Element;
-import game.backend.level.GameState3y4;
+import game.backend.GameState3y4;
 import game.frontend.BoardPanel;
 import game.frontend.CandyFrame;
 import javafx.animation.KeyFrame;
